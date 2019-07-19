@@ -29,6 +29,9 @@
       .list-item:not(.active):hover {
         background-color: rgba(0,0,0,.2);
       }
+      .list-item.active {
+        background-color: rgba(30, 17, 17, 0.52);
+      }
     }
     .middlebar {
       background-color: #fff;
@@ -211,7 +214,7 @@
       transform: translateX(-2px);
       z-index: 1;
     }
-    .bp3-button {
+    .bp3-button:not(.bp3-minimal) {
       background-color: #fff;
       width: 30px;
       .bp3-icon {
@@ -349,9 +352,9 @@
   width: 100%;
   .bp3-button-group {
     margin: 0 5px ;
-    .bp3-button:hover {
-      background-color: #d5d1d1;
-    }
+  }
+  .bp3-button:hover {
+    background-color: #d5d1d1;
   }
   .right-group {
     position: absolute;
@@ -383,4 +386,10 @@
 
 .button {
   padding: 2px 5px!important;
+}
+
+.bar-menu {
+  .bp3-icon {
+    float: right;
+  }
 }

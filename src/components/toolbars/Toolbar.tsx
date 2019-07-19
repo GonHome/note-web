@@ -2,24 +2,25 @@ import * as React from 'react';
 import { 
   Button, Popover, Position,
 } from '@blueprintjs/core';
-import { toolbarObj } from '../../models/models';
 
 type propTypes = {
-  toolbar: toolbarObj;
-  theme: string;
+  theme?: string;
+  changeTheme?: (theme: string) => void;
+  changeDialogType?: (dialogType: string) => void;
 };
 class Toolbar extends React.Component<propTypes> {
 
   public initMenu?: () => any;
 
+  public menuText: string = '';
+
   render() {
-    const { toolbar } = this.props;
     return (
       <Popover
         content={this.initMenu ? this.initMenu() : null}
         position={Position.BOTTOM_LEFT}
         modifiers={{ arrow: { enabled: false } }}>
-        <Button text={toolbar.text} small minimal />
+        <Button text={this.menuText} small minimal />
       </Popover>
     );
   }

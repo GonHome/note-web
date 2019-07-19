@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { InputGroup, Button, Popover, Position } from '@blueprintjs/core';
 import SortMenu from './SortMenu';
+import { sortObj } from '../../../models/models';
 type propTypes = {
   height: number;
   middleWidth: number;
+  sort: sortObj;
+  changeSort: (sort: sortObj) => void;
 };
 class Middlebar extends React.Component<propTypes> {
 
@@ -15,13 +18,15 @@ class Middlebar extends React.Component<propTypes> {
   );
 
   render() {
-    const { middleWidth, height } = this.props;
+    const { middleWidth, height, sort } = this.props;
+    const { sortName, sortOrder } = sort;
     return (
       <div className="middlebar layout column" style={{ width: middleWidth, display: 'block' }}>
         <div className="layout-header toolbar">
           <div className="multiple grow">
             <div className="search" style={{ width: middleWidth - 52 }}>
               <InputGroup
+                id="search"
                 placeholder="Search..."
                 rightElement={this.lockButton}
                 small

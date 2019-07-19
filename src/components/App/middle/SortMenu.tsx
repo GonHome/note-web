@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Icon } from '@blueprintjs/core';
 import {
   Menu, MenuItem,
 } from '@blueprintjs/core';
@@ -12,9 +13,9 @@ class SortMenu extends React.Component<propTypes> {
     const { width } = this.props;
     return (
       <Menu className="bar-menu" style={{ width }}>
-        <MenuItem text="标题" />
-        <MenuItem text="创建时间" />
-        <MenuItem text="修改时间" />
+        <MenuItem text={<span>标题<Icon icon="tick"/></span>} />
+        <MenuItem text={<span>创建时间</span>} />
+        <MenuItem text={<span>修改时间</span>} />
       </Menu>
     );
   }

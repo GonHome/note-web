@@ -6,12 +6,15 @@ import Main from './main/Main';
 import {
   LEFT_MAX_WIDTH, LEFT_MIN_WIDTH, MIDDLE_MAX_WIDTH, MIDDLE_MIN_WIDTH,
 } from '../../constants/CommonConstants';
+import { sortObj } from '../../models/models';
 type propTypes = {
   height: number;
   width: number;
   leftWidth: number;
   middleWidth: number;
+  sort: sortObj;
   moveWidth: (leftWidth: number, middleWidth: number) => void;
+  changeSort: (sort: sortObj) => void;
 };
 type stateTypes = {
   isOpen: boolean;
@@ -100,7 +103,7 @@ class App extends React.Component<propTypes, stateTypes> {
   };
 
   render() {
-    const { height, leftWidth, middleWidth, width } = this.props;
+    const { height, leftWidth, middleWidth, width, changeSort, sort } = this.props;
     const { isOpen } = this.state;
     return (
       <div className="app" style={{ height }}>
@@ -119,7 +122,7 @@ class App extends React.Component<propTypes, stateTypes> {
             onMouseUp={this.mouseUpMoveSide}
           />
           <Sidebar { ...{ height, leftWidth }} />
-          <Middlebar { ...{ height, middleWidth }} />
+          <Middlebar { ...{ height, middleWidth, sort, changeSort }} />
           <Main { ...{ height, leftWidth, middleWidth, width }}/>
         </div>
       </div>

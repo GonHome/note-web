@@ -55,6 +55,8 @@ export type toolbarsObj = toolbarObj[];
 
 export type toolbarObj = {
   text: string;
+  icon?: string;
+  event?: () => void;
   menus?: toolbarsObj;
 }
 
@@ -65,4 +67,9 @@ export type sideBarObj = {
   code: string,
   count: number,
   icon?: string,
-}
+};
+
+export type sortObj = {
+  sortName: string,
+  sortOrder: string,
+};

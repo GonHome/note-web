@@ -5,10 +5,12 @@ import Toolbars from '../components/toolbars/Toolbars';
 import { TOOLBAR_HEIGHT } from '../constants/CommonConstants';
 import { getTheme } from '../selectors/CommonSelectors';
 import { changeTheme } from '../actions/EnvironmentActions';
+import { changeDialogType } from '../actions/AppActions';
 type propTypes = {
   TOOLBAR_HEIGHT: number;
   theme: string;
   changeTheme: (theme: string) => void;
+  changeDialogType: (dialogType: string) => void;
 };
 
 const ToolbarContainer = (props: propTypes) => <Toolbars {...props} />;
@@ -21,6 +23,7 @@ const mapStateToProps = (state: stateTypes) => ({
 export default connect(
   mapStateToProps,
   {
-    changeTheme
+    changeTheme,
+    changeDialogType,
   },
 )(ToolbarContainer);

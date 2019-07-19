@@ -9,16 +9,16 @@ class MainHeadBar extends React.Component<propTypes> {
     return (
       <div className="layout-header toolbar">
         <ButtonGroup>
-          <Button icon="edit" small />
-          <Button icon="tag" small />
-          <Button icon="link" small />
+          <Button icon="edit" small title="编辑" />
+          <Button icon="tag" small title="标签" />
+          <Button icon="link" small title="附件" />
         </ButtonGroup>
         <ButtonGroup>
-          <Button icon="star-empty" small />
-          <Button icon="pin" small />
+          <Button icon="star-empty" small title="关注" />
+          <Button icon="pin" small title="固定" />
         </ButtonGroup>
-        <ButtonGroup className="right-group">
-          <Button icon="trash" small />
+        <ButtonGroup>
+          <Button icon="trash" small title="删除" />
         </ButtonGroup>
       </div>
     );

@@ -6,25 +6,29 @@ import { toolbarObj, toolbarsObj } from '../../models/models';
 
 type propTypes = {
   toolbar: toolbarObj;
-  theme: string;
 };
 class ToolbarMenu extends React.Component<propTypes> {
 
   showMenus = (toolbars: toolbarsObj) => toolbars.map((item: any, index: number) => {
-    const { theme } = this.props;
     const { menus } = item;
     if (menus) {
       return (
-        <MenuItem text={item.text} key={`${item.text}-${index}`} popoverProps={{ openOnTargetFocus :false }}>
+        <MenuItem
+          text={item.text}
+          key={`${item.text}-${index}`}
+          popoverProps={{ openOnTargetFocus :false }}
+          onClick={item.event ? item.event : null}
+        >
           {this.showMenus(menus)}
         </MenuItem>
       );
     }
-    if (item.text === 'Light' || item.text === 'Dark') {
+    if (item.icon) {
       return (
         <MenuItem
-          icon={theme === item.text ? 'tick' : 'blank'}
+          icon={item.icon}
           text={item.text}
+          onClick={item.event ? item.event : null}
           key={`${item.text}-${index}`}
         />
       );
@@ -33,7 +37,8 @@ class ToolbarMenu extends React.Component<propTypes> {
       <MenuItem
         text={item.text}
         key={`${item.text}-${index}`}
-      />
+        onClick={item.event ? item.event : null}
+    />
     );
   });
 
