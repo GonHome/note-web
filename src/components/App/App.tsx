@@ -2,11 +2,13 @@ import * as React from 'react';
 import Modal from './Modal';
 import Sidebar from './side/Sidebar';
 import Middlebar from './middle/Middlebar';
+import Main from './main/Main';
 import {
   LEFT_MAX_WIDTH, LEFT_MIN_WIDTH, MIDDLE_MAX_WIDTH, MIDDLE_MIN_WIDTH,
 } from '../../constants/CommonConstants';
 type propTypes = {
   height: number;
+  width: number;
   leftWidth: number;
   middleWidth: number;
   moveWidth: (leftWidth: number, middleWidth: number) => void;
@@ -28,12 +30,29 @@ class App extends React.Component<propTypes, stateTypes> {
   };
 
   mouseDownMoveMiddle = (e: any) => {
-    const { leftWidth, middleWidth } = this.props;
     let bx = e.clientX;
     let prevX = 0;
     document.onmousemove = (event) => {
+      const { leftWidth, middleWidth, moveWidth } = this.props;
       let nextX = event.clientX - bx;
-      console.log(nextX - prevX);
+      let newMiddleWidth = middleWidth + nextX - prevX;
+      let leftDiff = 0;
+      if (newMiddleWidth < MIDDLE_MIN_WIDTH) {
+        leftDiff = newMiddleWidth - MIDDLE_MIN_WIDTH;
+        newMiddleWidth = MIDDLE_MIN_WIDTH;
+      } else if (newMiddleWidth > MIDDLE_MAX_WIDTH) {
+        leftDiff =  newMiddleWidth - MIDDLE_MAX_WIDTH;
+        newMiddleWidth = MIDDLE_MAX_WIDTH;
+      }
+      let newLeftWidth = leftWidth + leftDiff;
+      if (newLeftWidth < LEFT_MIN_WIDTH) {
+        newLeftWidth = LEFT_MIN_WIDTH;
+      } else if (newLeftWidth > LEFT_MAX_WIDTH) {
+        newLeftWidth = LEFT_MAX_WIDTH;
+      }
+      if (leftWidth !== newLeftWidth || middleWidth !== newMiddleWidth) {
+        moveWidth(newLeftWidth, newMiddleWidth);
+      }
       prevX = nextX;
     };
     document.onmouseup = () => {
@@ -56,6 +75,11 @@ class App extends React.Component<propTypes, stateTypes> {
         newLeftWidth = LEFT_MAX_WIDTH > sumWidth - MIDDLE_MIN_WIDTH ? sumWidth - MIDDLE_MIN_WIDTH : LEFT_MAX_WIDTH;
       }
       let newMiddleWidth = sumWidth - newLeftWidth;
+      if (newMiddleWidth < MIDDLE_MIN_WIDTH) {
+        newMiddleWidth = MIDDLE_MIN_WIDTH;
+      } else if (newMiddleWidth > MIDDLE_MAX_WIDTH) {
+        newMiddleWidth = MIDDLE_MAX_WIDTH;
+      }
       if (leftWidth !== newLeftWidth || middleWidth !== newMiddleWidth) {
         moveWidth(newLeftWidth, newMiddleWidth);
       }
@@ -76,7 +100,7 @@ class App extends React.Component<propTypes, stateTypes> {
   };
 
   render() {
-    const { height, leftWidth, middleWidth } = this.props;
+    const { height, leftWidth, middleWidth, width } = this.props;
     const { isOpen } = this.state;
     return (
       <div className="app" style={{ height }}>
@@ -96,6 +120,7 @@ class App extends React.Component<propTypes, stateTypes> {
           />
           <Sidebar { ...{ height, leftWidth }} />
           <Middlebar { ...{ height, middleWidth }} />
+          <Main { ...{ height, leftWidth, middleWidth, width }}/>
         </div>
       </div>
     );

@@ -76,14 +76,58 @@ export const toolbars: toolbarsObj = [
     },
     {
         text: '编辑',
+        menus: [
+            {
+                text: '删除',
+            },
+            {
+                text: '全选',
+            },
+            {
+                text: '清空回收站',
+            },
+        ]
     },
     {
         text: '视图',
+        menus: [
+            {
+                text: '主界面',
+            },
+            {
+                text: '隐藏菜单',
+            },
+            {
+                text: '编辑界面',
+            },
+        ]
     },
     {
         text: '窗口',
+        menus: [
+            {
+                text: '搜索',
+            },
+            {
+                text: '上一个标签',
+            },
+            {
+                text: '下一个标签',
+            },
+            {
+                text: '上一个笔记',
+            },
+            {
+                text: '下一个笔记',
+            },
+        ]
     },
     {
         text: '帮助',
+        menus: [
+            {
+                text: '帮助手册',
+            },
+        ]
     },
-]
+];

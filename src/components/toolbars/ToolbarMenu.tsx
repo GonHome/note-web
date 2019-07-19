@@ -6,10 +6,12 @@ import { toolbarObj, toolbarsObj } from '../../models/models';
 
 type propTypes = {
   toolbar: toolbarObj;
+  theme: string;
 };
 class ToolbarMenu extends React.Component<propTypes> {
 
   showMenus = (toolbars: toolbarsObj) => toolbars.map((item: any, index: number) => {
+    const { theme } = this.props;
     const { menus } = item;
     if (menus) {
       return (
@@ -18,8 +20,20 @@ class ToolbarMenu extends React.Component<propTypes> {
         </MenuItem>
       );
     }
+    if (item.text === 'Light' || item.text === 'Dark') {
+      return (
+        <MenuItem
+          icon={theme === item.text ? 'tick' : 'blank'}
+          text={item.text}
+          key={`${item.text}-${index}`}
+        />
+      );
+    }
     return (
-      <MenuItem text={item.text} key={`${item.text}-${index}`} />
+      <MenuItem
+        text={item.text}
+        key={`${item.text}-${index}`}
+      />
     );
   });
 

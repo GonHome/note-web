@@ -8,3 +8,4 @@ export const getAppHeight = (state: stateTypes) => getHeight(state)
   - CommonConstants.HEAD_HEIGHT - CommonConstants.TOOLBAR_HEIGHT;
 export const getUserInfo = (state: stateTypes) => state.session.userInfo;
 export const getIsLogin = (state: stateTypes) => state.session.isLogin;
+export const getTheme = (state: stateTypes) => state.environment.theme;
