@@ -5,6 +5,7 @@
 @import './styles/app.scss';
 @import './styles/preview.scss';
 @import './styles/dialog.scss';
+@import '~highlight.js/styles/a11y-light.css';
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

@@ -9,7 +9,9 @@ type propTypes = {
 };
 class ToolbarMenu extends React.Component<propTypes> {
 
-  showMenus = (toolbars: toolbarsObj) => toolbars.map((item: any, index: number) => {
+  showMenus = (toolbars: toolbarsObj) => toolbars.filter((item: any) => {
+    return item.visiable;
+  }).map((item: any, index: number) => {
     const { menus } = item;
     if (menus) {
       return (

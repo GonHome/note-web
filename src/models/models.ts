@@ -58,6 +58,7 @@ export type toolbarObj = {
   icon?: string;
   event?: () => void;
   menus?: toolbarsObj;
+  visiable?: boolean;
 }
 
 export type sideBarListObj = sideBarObj[];
@@ -72,4 +73,20 @@ export type sideBarObj = {
 export type sortObj = {
   sortName: string,
   sortOrder: string,
+};
+
+export type sortOrderObj = {
+  text: string;
+  icon: string;
+  code: string;
+};
+
+export type sortNameObj ={
+  text: string;
+  code: string;
+};
+
+export type MonacoEditor = import ( 'monaco-editor/esm/vs/editor/editor.api.js' ).editor.ICodeEditor & {
+  getChangeDate: () => Date | undefined,
+  getFilePath: () => string
 };

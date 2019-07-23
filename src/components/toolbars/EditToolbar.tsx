@@ -13,12 +13,15 @@ class EditToolbar extends Toolbar {
       menus: [
         {
           text: '删除',
+          visiable: true,
         },
         {
           text: '全选',
+          visiable: true,
         },
         {
           text: '清空回收站',
+          visiable: true,
         },
       ]
     };

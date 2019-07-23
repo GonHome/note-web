@@ -9,6 +9,7 @@ export const CHANGE_THEME = 'CHANGE_THEME';
 export const MOVE_WIDTH_BAR = 'MOVE_WIDTH_BAR';
 export const CHANGE_DIALOG_TYPE = 'CHANGE_DIALOG_TYPE';
 export const CHANGE_SORT = 'CHANGE_SORT';
+export const CHANGE_ISEDIT = 'CHANGE_ISEDIT';
 
 // session
 export const CHECK_LOGIN = 'CHECK_LOGIN';

@@ -8,7 +8,8 @@ const initialState = {
   leftWidth: CommonConstants.LEFT_WIDTH,
   middleWidth: CommonConstants.MIDDLE_WIDTH,
   dialogType: '',
-  sort: { sortName: 'name', sortOrder: 'DESC' }
+  sort: { sortName: 'name', sortOrder: 'DESC' },
+  isEdit: false,
 };
 
 const app = (state = initialState, action: actionTypes) => {
@@ -17,6 +18,10 @@ const app = (state = initialState, action: actionTypes) => {
       return { ...state, leftWidth: action.leftWidth, middleWidth: action.middleWidth };
     case getType(appActions.changeDialogType):
       return { ...state, dialogType: action.dialogType };
+    case getType(appActions.changeSort):
+      return { ...state, sort: action.sort };
+    case getType(appActions.changeIsEdit):
+      return { ...state, isEdit: action.isEdit };
     default:
       return state;
   }

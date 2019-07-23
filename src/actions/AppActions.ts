@@ -14,3 +14,6 @@ export const changeSort = createStandardAction(
   ActionTypes.CHANGE_SORT,
 ).map((sort: sortObj) => ({ sort }));
 
+export const changeIsEdit = createStandardAction(
+  ActionTypes.CHANGE_ISEDIT,
+).map((isEdit: boolean) => ({ isEdit }));

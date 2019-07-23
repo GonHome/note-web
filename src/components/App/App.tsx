@@ -15,6 +15,9 @@ type propTypes = {
   sort: sortObj;
   moveWidth: (leftWidth: number, middleWidth: number) => void;
   changeSort: (sort: sortObj) => void;
+  theme: string;
+  isEdit: boolean;
+  changeIsEdit: (isEdit: boolean) => void;
 };
 type stateTypes = {
   isOpen: boolean;
@@ -103,7 +106,7 @@ class App extends React.Component<propTypes, stateTypes> {
   };
 
   render() {
-    const { height, leftWidth, middleWidth, width, changeSort, sort } = this.props;
+    const { height, leftWidth, middleWidth, width, changeSort, sort, theme, isEdit, changeIsEdit } = this.props;
     const { isOpen } = this.state;
     return (
       <div className="app" style={{ height }}>
@@ -123,7 +126,7 @@ class App extends React.Component<propTypes, stateTypes> {
           />
           <Sidebar { ...{ height, leftWidth }} />
           <Middlebar { ...{ height, middleWidth, sort, changeSort }} />
-          <Main { ...{ height, leftWidth, middleWidth, width }}/>
+          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit }}/>
         </div>
       </div>
     );

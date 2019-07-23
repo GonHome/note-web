@@ -12,6 +12,7 @@ class HelpToolbar extends Toolbar {
       menus: [
         {
           text: '帮助手册',
+          visiable: true,
         },
       ]
     };

@@ -7,6 +7,9 @@ type propTypes = {
   theme?: string;
   changeTheme?: (theme: string) => void;
   changeDialogType?: (dialogType: string) => void;
+  moveWidth?: (leftWidth: number, middleWidth: number) => void;
+  middleWidth?: number;
+  leftWidth?: number;
 };
 class Toolbar extends React.Component<propTypes> {
 

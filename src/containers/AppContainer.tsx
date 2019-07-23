@@ -2,9 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { stateTypes } from '../reducers';
 import App from '../components/App/App';
-import { getAppHeight, getWidth } from '../selectors/CommonSelectors';
-import { getLeftWidth, getMiddleWidth, getSort } from '../selectors/AppSelectors';
-import { moveWidth, changeSort } from '../actions/AppActions';
+import { getAppHeight, getTheme, getWidth } from '../selectors/CommonSelectors';
+import { getLeftWidth, getMiddleWidth, getSort, getIsEdit } from '../selectors/AppSelectors';
+import { moveWidth, changeSort, changeIsEdit } from '../actions/AppActions';
 import { sortObj } from '../models/models';
 type propTypes = {
   height: number;
@@ -14,9 +14,12 @@ type propTypes = {
   sort: sortObj;
   moveWidth: (leftWidth: number, middleWidth: number) => void;
   changeSort: (sort: sortObj) => void;
+  theme: string;
+  isEdit: boolean;
+  changeIsEdit: (isEdit: boolean) => void;
 };
 
-const ToolbarContainer = (props: propTypes) => <App {...props} />;
+const AppContainer = (props: propTypes) => <App {...props} />;
 
 const mapStateToProps = (state: stateTypes) => ({
   height: getAppHeight(state),
@@ -24,6 +27,8 @@ const mapStateToProps = (state: stateTypes) => ({
   leftWidth: getLeftWidth(state),
   middleWidth: getMiddleWidth(state),
   sort: getSort(state),
+  theme: getTheme(state),
+  isEdit: getIsEdit(state),
 });
 
 export default connect(
@@ -31,5 +36,6 @@ export default connect(
   {
     moveWidth,
     changeSort,
+    changeIsEdit,
   },
-)(ToolbarContainer);
+)(AppContainer);

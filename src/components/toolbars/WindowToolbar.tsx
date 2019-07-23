@@ -20,18 +20,23 @@ class WindowToolbar extends Toolbar {
         {
           text: '搜索',
           event: () => this.focusSearch(),
+          visiable: true,
         },
         {
           text: '上一个标签',
+          visiable: true,
         },
         {
           text: '下一个标签',
+          visiable: true,
         },
         {
           text: '上一个笔记',
+          visiable: true,
         },
         {
           text: '下一个笔记',
+          visiable: true,
         },
       ]
     };

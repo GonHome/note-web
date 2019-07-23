@@ -15,6 +15,7 @@ class SysToolbar extends Toolbar {
         {
           text: '关于系统',
           event: () => changeDialogType ? changeDialogType('about') : null,
+          visiable: true,
         },
         {
           text: '主题',
@@ -23,16 +24,19 @@ class SysToolbar extends Toolbar {
               text: 'Light',
               icon: 'Light' === theme ? 'tick' : 'blank',
               event: () => changeTheme ? changeTheme('Light') : null,
+              visiable: true,
             },
             {
               text: 'Dark',
               icon: 'Dark' === theme ? 'tick' : 'blank',
               event: () => changeTheme ? changeTheme('Dark') : null,
+              visiable: true,
             },
           ]
         },
         {
-          text: '退出'
+          text: '退出',
+          visiable: true,
         }
       ],
     };

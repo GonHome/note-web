@@ -52,6 +52,9 @@
       border-color: #d6d6d6;
       color: #505050;
     }
+    .main-header{
+      padding: 5px 10px 5px 0 !important;
+    }
     .card.vertical, .card:not(.vertical):not(.horizontal) {
       -webkit-flex-direction: column;
       -ms-flex-direction: column;
@@ -128,6 +131,12 @@
       width: 500px;
       max-width: 85%;
     }
+    .focus:not(:active) {
+      .layout {
+        margin-bottom: 0!important;
+        transition: width 1s ;
+      }
+    }
     .layout {
       position: relative;
       display: -webkit-flex;
@@ -138,7 +147,7 @@
       align-items: stretch;
       * {
         margin-bottom: 0!important;
-        transition: opacity .15s;
+        transition: opacity .15s ;
       }
       .sash-dragging {
         cursor: col-resize!important;
@@ -172,7 +181,6 @@
       .layout-content {
         height: 0;
         overflow: auto;
-        padding: .625rem;
         -webkit-flex-grow: 1;
         -ms-flex-positive: 1;
         flex-grow: 1;
@@ -214,11 +222,30 @@
       transform: translateX(-2px);
       z-index: 1;
     }
-    .bp3-button:not(.bp3-minimal) {
+    .bp3-button:not(.bp3-minimal):not(.bp3-active) {
       background-color: #fff;
-      width: 30px;
       .bp3-icon {
         color: black;
+      }
+    }
+    .editor {
+      background-color: #fff;
+      border-color: #e6e5e5;
+      color: #1f1f1f;
+      height: calc(100% - 37px) !important;
+      .editor-content {
+        overflow: hidden;
+        font-family: Consolas, "Courier New", monospace;
+        cursor: text;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 21px;
+        height: 100%;
+        .high-content {
+          -webkit-user-modify: read-write;
+          white-space: pre-line;
+          height: 100%;
+        }
       }
     }
   }
@@ -350,11 +377,19 @@
   border-bottom-width: 1px;
   border-bottom-style: solid;
   width: 100%;
+  .bp3-button {
+    width: 30px;
+  }
   .bp3-button-group {
     margin: 0 5px ;
   }
-  .bp3-button:hover {
-    background-color: #d5d1d1;
+  .bp3-button:not(.bp3-active):hover {
+    background-color: #d5d1d1 !important;
+  }
+  .bp3-button.bp3-active {
+    .bp3-icon {
+      color: orange;
+    }
   }
   .right-group {
     position: absolute;
@@ -393,3 +428,19 @@
     float: right;
   }
 }
+.editor {
+  -webkit-user-select: text!important;
+  -moz-user-select: text!important;
+  -ms-user-select: text!important;
+  user-select: text!important;
+  font-size: 14px!important;
+  line-height: 1.5!important;
+}
+.layout-content {
+  height: 0;
+  overflow: auto;
+  flex-grow: 1;
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
