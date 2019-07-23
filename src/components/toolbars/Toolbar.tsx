@@ -10,6 +10,8 @@ type propTypes = {
   moveWidth?: (leftWidth: number, middleWidth: number) => void;
   middleWidth?: number;
   leftWidth?: number;
+  changeIsEye?: (isEye: boolean) => void;
+  isEye?: boolean;
 };
 class Toolbar extends React.Component<propTypes> {
 

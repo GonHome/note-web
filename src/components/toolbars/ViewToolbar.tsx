@@ -8,7 +8,7 @@ class ViewToolbar extends Toolbar {
   menuText = '视图';
 
   initMenu = () => {
-    const { moveWidth, middleWidth, leftWidth } = this.props;
+    const { moveWidth, middleWidth, leftWidth, isEye, changeIsEye } = this.props;
     const toolbar: toolbarObj = {
       text: '视图',
       menus: [
@@ -34,7 +34,8 @@ class ViewToolbar extends Toolbar {
         },
         {
           text: '可视界面',
-          visiable: true,
+          event: () => changeIsEye ? changeIsEye(true) : null,
+          visiable: !isEye,
         },
       ]
     };

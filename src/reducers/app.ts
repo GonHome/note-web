@@ -10,6 +10,7 @@ const initialState = {
   dialogType: '',
   sort: { sortName: 'name', sortOrder: 'DESC' },
   isEdit: false,
+  isEye: false,
 };
 
 const app = (state = initialState, action: actionTypes) => {
@@ -22,6 +23,8 @@ const app = (state = initialState, action: actionTypes) => {
       return { ...state, sort: action.sort };
     case getType(appActions.changeIsEdit):
       return { ...state, isEdit: action.isEdit };
+    case getType(appActions.changeIsEye):
+      return { ...state, leftWidth: action.leftWidth, middleWidth: action.middleWidth, isEye: action.isEye };
     default:
       return state;
   }

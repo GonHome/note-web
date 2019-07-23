@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { stateTypes } from '../reducers';
 import App from '../components/App/App';
 import { getAppHeight, getTheme, getWidth } from '../selectors/CommonSelectors';
-import { getLeftWidth, getMiddleWidth, getSort, getIsEdit } from '../selectors/AppSelectors';
-import { moveWidth, changeSort, changeIsEdit } from '../actions/AppActions';
+import { getLeftWidth, getMiddleWidth, getSort, getIsEdit, getIsEye } from '../selectors/AppSelectors';
+import { moveWidth, changeSort, changeIsEdit, changeIsEye } from '../actions/AppActions';
 import { sortObj } from '../models/models';
 type propTypes = {
   height: number;
@@ -16,7 +16,9 @@ type propTypes = {
   changeSort: (sort: sortObj) => void;
   theme: string;
   isEdit: boolean;
+  isEye: boolean;
   changeIsEdit: (isEdit: boolean) => void;
+  changeIsEye: (isEye: boolean) => void;
 };
 
 const AppContainer = (props: propTypes) => <App {...props} />;
@@ -29,6 +31,7 @@ const mapStateToProps = (state: stateTypes) => ({
   sort: getSort(state),
   theme: getTheme(state),
   isEdit: getIsEdit(state),
+  isEye: getIsEye(state),
 });
 
 export default connect(
@@ -37,5 +40,6 @@ export default connect(
     moveWidth,
     changeSort,
     changeIsEdit,
+    changeIsEye,
   },
 )(AppContainer);

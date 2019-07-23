@@ -145,6 +145,9 @@
       -webkit-align-items: stretch;
       -ms-flex-align: stretch;
       align-items: stretch;
+      .container-fluid {
+        padding: 0;
+      }
       * {
         margin-bottom: 0!important;
         transition: opacity .15s ;

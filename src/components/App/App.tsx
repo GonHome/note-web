@@ -18,6 +18,8 @@ type propTypes = {
   theme: string;
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
+  isEye: boolean;
+  changeIsEye: (isEye: boolean) => void;
 };
 type stateTypes = {
   isOpen: boolean;
@@ -106,7 +108,7 @@ class App extends React.Component<propTypes, stateTypes> {
   };
 
   render() {
-    const { height, leftWidth, middleWidth, width, changeSort, sort, theme, isEdit, changeIsEdit } = this.props;
+    const { height, leftWidth, middleWidth, width, changeSort, sort, theme, isEdit, changeIsEdit, isEye, changeIsEye } = this.props;
     const { isOpen } = this.state;
     return (
       <div className="app" style={{ height }}>
@@ -126,7 +128,7 @@ class App extends React.Component<propTypes, stateTypes> {
           />
           <Sidebar { ...{ height, leftWidth }} />
           <Middlebar { ...{ height, middleWidth, sort, changeSort }} />
-          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit }}/>
+          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEye }}/>
         </div>
       </div>
     );

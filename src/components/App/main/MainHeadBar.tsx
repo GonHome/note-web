@@ -5,20 +5,28 @@ import TagMenu from './TagMenu';
 type propTypes = {
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
+  isEye: boolean;
+  changeIsEye: (isEye: boolean) => void;
 };
 class MainHeadBar extends React.Component<propTypes> {
 
-  changeIsEdit = () => {
+  changeEdit = () => {
     const { isEdit, changeIsEdit } = this.props;
     changeIsEdit(!isEdit);
   };
 
+  changeEye = () => {
+    const { isEye, changeIsEye } = this.props;
+    changeIsEye(!isEye);
+  };
+
   render() {
-    const { isEdit } = this.props;
+    const { isEdit, isEye } = this.props;
     return (
       <div className="layout-header toolbar main-header">
         <ButtonGroup>
-          <Button icon="edit" small title="编辑" active={isEdit} onClick={this.changeIsEdit}/>
+          <Button icon="edit" small title="编辑" active={isEdit} onClick={this.changeEdit}/>
+          <Button icon="eye-on" small title="可视界面" active={isEye} onClick={this.changeEye}/>
           <Popover
             content={<TagMenu />}
             position={Position.BOTTOM}
