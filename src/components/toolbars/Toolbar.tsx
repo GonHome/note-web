@@ -2,6 +2,7 @@ import * as React from 'react';
 import { 
   Button, Popover, Position,
 } from '@blueprintjs/core';
+import { eyeWidthObj } from "../../models/models";
 
 type propTypes = {
   theme?: string;
@@ -10,7 +11,7 @@ type propTypes = {
   moveWidth?: (leftWidth: number, middleWidth: number) => void;
   middleWidth?: number;
   leftWidth?: number;
-  changeIsEye?: (isEye: boolean) => void;
+  changeIsEyeWidth?: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   isEye?: boolean;
 };
 class Toolbar extends React.Component<propTypes> {

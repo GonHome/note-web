@@ -6,6 +6,7 @@ import EditToolbar from './EditToolbar';
 import ViewToolbar from './ViewToolbar';
 import WindowToolbar from './WindowToolbar';
 import HelpToolbar from './HelpToolbar';
+import { eyeWidthObj } from '../../models/models';
 type propTypes = {
   TOOLBAR_HEIGHT: number;
   theme: string;
@@ -14,20 +15,20 @@ type propTypes = {
   moveWidth: (leftWidth: number, middleWidth: number) => void;
   middleWidth: number;
   leftWidth: number;
-  changeIsEye: (isEye: boolean) => void;
+  changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   isEye: boolean;
 };
 class Toolbars extends React.Component<propTypes> {
 
   render() {
-    const { TOOLBAR_HEIGHT, theme, changeTheme, changeDialogType, moveWidth, middleWidth, leftWidth, changeIsEye, isEye } = this.props;
+    const { TOOLBAR_HEIGHT, theme, changeTheme, changeDialogType, moveWidth, middleWidth, leftWidth, changeIsEyeWidth, isEye } = this.props;
     return (
       <div className="toolbar" style={{ height: TOOLBAR_HEIGHT }}>
         <ButtonGroup>
           <SysToolbar theme={theme} changeTheme={changeTheme} changeDialogType={changeDialogType}/>
           <FileToolbar />
           <EditToolbar />
-          <ViewToolbar moveWidth={moveWidth} middleWidth={middleWidth} leftWidth={leftWidth} changeIsEye={changeIsEye} isEye={isEye}/>
+          <ViewToolbar moveWidth={moveWidth} middleWidth={middleWidth} leftWidth={leftWidth} changeIsEyeWidth={changeIsEyeWidth} isEye={isEye}/>
           <WindowToolbar />
           <HelpToolbar />
         </ButtonGroup>

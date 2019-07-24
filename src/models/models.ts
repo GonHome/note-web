@@ -90,3 +90,9 @@ export type MonacoEditor = import ( 'monaco-editor/esm/vs/editor/editor.api.js' 
   getChangeDate: () => Date | undefined,
   getFilePath: () => string
 };
+
+export type eyeWidthObj = {
+  leftWidth: number;
+  middleWidth: number;
+  isEye: boolean;
+}

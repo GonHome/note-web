@@ -8,33 +8,33 @@ class ViewToolbar extends Toolbar {
   menuText = '视图';
 
   initMenu = () => {
-    const { moveWidth, middleWidth, leftWidth, isEye, changeIsEye } = this.props;
+    const { middleWidth, leftWidth, isEye, changeIsEyeWidth } = this.props;
     const toolbar: toolbarObj = {
       text: '视图',
       menus: [
         {
           text: '主界面',
-          event: () => moveWidth ? moveWidth(LEFT_WIDTH, MIDDLE_WIDTH) : null,
+          event: () => changeIsEyeWidth ? changeIsEyeWidth({ leftWidth: LEFT_WIDTH, middleWidth: MIDDLE_WIDTH, isEye: false }) : null,
           visiable: middleWidth === 0 || leftWidth === 0 ,
         },
         {
           text: '编辑界面',
-          event: () => moveWidth ? moveWidth(0, 0) : null,
+          event: () => changeIsEyeWidth ? changeIsEyeWidth({ leftWidth: 0, middleWidth: 0, isEye: false })  : null,
           visiable: middleWidth !== 0 || leftWidth !== 0 ,
         },
         {
           text: '隐藏菜单',
-          event: () => moveWidth &&  middleWidth ? moveWidth(0, middleWidth) : null,
+          event: () => changeIsEyeWidth &&  middleWidth ? changeIsEyeWidth({ leftWidth: 0, middleWidth: middleWidth, isEye: false }) : null,
           visiable: leftWidth !== 0,
         },
         {
           text: '显示菜单',
-          event: () => moveWidth &&  middleWidth ? moveWidth(LEFT_WIDTH, middleWidth) : null,
+          event: () => changeIsEyeWidth &&  middleWidth ? changeIsEyeWidth({ leftWidth: LEFT_WIDTH, middleWidth: middleWidth, isEye: false }) : null,
           visiable: leftWidth === 0 &&  middleWidth !== 0,
         },
         {
           text: '可视界面',
-          event: () => changeIsEye ? changeIsEye(true) : null,
+          event: () => changeIsEyeWidth ? changeIsEyeWidth({ leftWidth: 0, middleWidth:0, isEye: true }) : null,
           visiable: !isEye,
         },
       ]

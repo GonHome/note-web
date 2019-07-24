@@ -19,6 +19,7 @@ class SysToolbar extends Toolbar {
         },
         {
           text: '主题',
+          visiable: true,
           menus: [
             {
               text: 'Light',

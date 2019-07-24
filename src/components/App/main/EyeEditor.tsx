@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Content from './Content';
 import Editor from './Editor';
+import { eyeWidthObj } from "../../../models/models";
 
 type propTypes = {
   height: number,
@@ -12,7 +13,7 @@ type propTypes = {
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;
-  changeIsEye: (isEye: boolean) => void;
+  changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
 };
 class EyeEditor extends React.Component<propTypes> {
 

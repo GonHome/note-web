@@ -1,7 +1,6 @@
 import { createStandardAction } from 'typesafe-actions';
 import * as ActionTypes from '../constants/ActionTypes';
-import { sortObj } from '../models/models';
-import { MIDDLE_WIDTH, LEFT_WIDTH } from '../constants/CommonConstants';
+import { sortObj, eyeWidthObj } from '../models/models';
 
 export const moveWidth = createStandardAction(
   ActionTypes.MOVE_WIDTH_BAR,
@@ -19,11 +18,7 @@ export const changeIsEdit = createStandardAction(
   ActionTypes.CHANGE_ISEDIT,
 ).map((isEdit: boolean) => ({ isEdit }));
 
-export const changeIsEye = createStandardAction(
-  ActionTypes.CHANGE_ISEYE,
-).map((isEye: boolean) => {
-    if (isEye) {
-      return { leftWidth: 0, middleWidth: 0, isEye };
-    }
-    return { leftWidth: LEFT_WIDTH, middleWidth: MIDDLE_WIDTH, isEye };
-  });
+export const changeIsEyeWidth = createStandardAction(
+  ActionTypes.CHANGE_ISEYEWIDTH,
+).map(({ leftWidth, middleWidth, isEye }: eyeWidthObj) => ({ leftWidth, middleWidth, isEye }));
+

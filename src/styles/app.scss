@@ -430,6 +430,16 @@
   .bp3-icon {
     float: right;
   }
+  .bp3-menu-item {
+    .hover-show {
+      display: none;
+    }
+  }
+  .bp3-menu-item:hover {
+    .hover-show {
+      display: block;
+    }
+  }
 }
 .editor {
   -webkit-user-select: text!important;
@@ -445,5 +455,10 @@
   flex-grow: 1;
   border-radius: 0;
   flex-shrink: 0;
+}
+.bp3-input-group {
+  .danger {
+    color: red !important;
+  }
 }
 

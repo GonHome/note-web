@@ -11,6 +11,10 @@ export const CHANGE_DIALOG_TYPE = 'CHANGE_DIALOG_TYPE';
 export const CHANGE_SORT = 'CHANGE_SORT';
 export const CHANGE_ISEDIT = 'CHANGE_ISEDIT';
 export const CHANGE_ISEYE = 'CHANGE_ISEYE';
-
+export const CHANGE_ISEYEWIDTH = 'CHANGE_ISEYEWIDTH';
+export const WINDOW_RESIZE1 = 'WINDOW_RESIZE1';
 // session
 export const CHECK_LOGIN = 'CHECK_LOGIN';
+
+//test
+export const  ADD = 'ADD';

@@ -4,8 +4,8 @@ import { stateTypes } from '../reducers';
 import App from '../components/App/App';
 import { getAppHeight, getTheme, getWidth } from '../selectors/CommonSelectors';
 import { getLeftWidth, getMiddleWidth, getSort, getIsEdit, getIsEye } from '../selectors/AppSelectors';
-import { moveWidth, changeSort, changeIsEdit, changeIsEye } from '../actions/AppActions';
-import { sortObj } from '../models/models';
+import { moveWidth, changeSort, changeIsEdit, changeIsEyeWidth } from '../actions/AppActions';
+import { sortObj, eyeWidthObj } from '../models/models';
 type propTypes = {
   height: number;
   leftWidth: number;
@@ -18,7 +18,7 @@ type propTypes = {
   isEdit: boolean;
   isEye: boolean;
   changeIsEdit: (isEdit: boolean) => void;
-  changeIsEye: (isEye: boolean) => void;
+  changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
 };
 
 const AppContainer = (props: propTypes) => <App {...props} />;
@@ -40,6 +40,6 @@ export default connect(
     moveWidth,
     changeSort,
     changeIsEdit,
-    changeIsEye,
+    changeIsEyeWidth,
   },
 )(AppContainer);

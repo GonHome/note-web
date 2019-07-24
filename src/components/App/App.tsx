@@ -6,7 +6,7 @@ import Main from './main/Main';
 import {
   LEFT_MAX_WIDTH, LEFT_MIN_WIDTH, MIDDLE_MAX_WIDTH, MIDDLE_MIN_WIDTH,
 } from '../../constants/CommonConstants';
-import { sortObj } from '../../models/models';
+import { eyeWidthObj, sortObj } from '../../models/models';
 type propTypes = {
   height: number;
   width: number;
@@ -19,7 +19,7 @@ type propTypes = {
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;
-  changeIsEye: (isEye: boolean) => void;
+  changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
 };
 type stateTypes = {
   isOpen: boolean;
@@ -108,7 +108,7 @@ class App extends React.Component<propTypes, stateTypes> {
   };
 
   render() {
-    const { height, leftWidth, middleWidth, width, changeSort, sort, theme, isEdit, changeIsEdit, isEye, changeIsEye } = this.props;
+    const { height, leftWidth, middleWidth, width, changeSort, sort, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth } = this.props;
     const { isOpen } = this.state;
     return (
       <div className="app" style={{ height }}>
@@ -128,7 +128,7 @@ class App extends React.Component<propTypes, stateTypes> {
           />
           <Sidebar { ...{ height, leftWidth }} />
           <Middlebar { ...{ height, middleWidth, sort, changeSort }} />
-          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEye }}/>
+          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth }}/>
         </div>
       </div>
     );

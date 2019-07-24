@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { stateTypes } from '../reducers';
 import Toolbars from '../components/toolbars/Toolbars';
 import { TOOLBAR_HEIGHT } from '../constants/CommonConstants';
 import { getTheme } from '../selectors/CommonSelectors';
 import { changeTheme } from '../actions/EnvironmentActions';
-import { changeDialogType, moveWidth, changeIsEye } from '../actions/AppActions';
+import { changeDialogType, moveWidth, changeIsEyeWidth } from '../actions/AppActions';
 import { getLeftWidth, getMiddleWidth, getIsEye } from '../selectors/AppSelectors';
+import { eyeWidthObj } from '../models/models';
 type propTypes = {
   TOOLBAR_HEIGHT: number;
   theme: string;
@@ -15,7 +17,7 @@ type propTypes = {
   moveWidth: (leftWidth: number, middleWidth: number) => void;
   middleWidth: number;
   leftWidth: number;
-  changeIsEye: (isEye: boolean) => void;
+  changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   isEye: boolean;
 };
 
@@ -28,13 +30,18 @@ const mapStateToProps = (state: stateTypes) => ({
   leftWidth: getLeftWidth(state),
   isEye: getIsEye(state),
 });
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      changeTheme,
+      changeDialogType,
+      moveWidth,
+      changeIsEyeWidth,
+    },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,
-  {
-    changeTheme,
-    changeDialogType,
-    moveWidth,
-    changeIsEye,
-  },
+  mapDispatchToProps,
 )(ToolbarContainer);

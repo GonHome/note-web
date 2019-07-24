@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { Button, ButtonGroup, Popover, Position } from '@blueprintjs/core';
 import TagMenu from './TagMenu';
+import { eyeWidthObj } from '../../../models/models';
+import { LEFT_WIDTH, MIDDLE_WIDTH } from '../../../constants/CommonConstants';
+import HeadLoading from './HeadLoading';
 
 type propTypes = {
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;
-  changeIsEye: (isEye: boolean) => void;
+  changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
 };
 class MainHeadBar extends React.Component<propTypes> {
 
@@ -16,8 +19,12 @@ class MainHeadBar extends React.Component<propTypes> {
   };
 
   changeEye = () => {
-    const { isEye, changeIsEye } = this.props;
-    changeIsEye(!isEye);
+    const { isEye, changeIsEyeWidth } = this.props;
+    if (isEye) {
+      changeIsEyeWidth({ leftWidth: LEFT_WIDTH, middleWidth: MIDDLE_WIDTH, isEye: false });
+    } else {
+      changeIsEyeWidth({ leftWidth: 0, middleWidth: 0, isEye: true });
+    }
   };
 
   render() {
@@ -25,7 +32,7 @@ class MainHeadBar extends React.Component<propTypes> {
     return (
       <div className="layout-header toolbar main-header">
         <ButtonGroup>
-          <Button icon="edit" small title="编辑" active={isEdit} onClick={this.changeEdit}/>
+          <Button icon="edit" small title="编辑" active={isEdit} onClick={this.changeEdit} disabled={isEye}/>
           <Button icon="eye-on" small title="可视界面" active={isEye} onClick={this.changeEye}/>
           <Popover
             content={<TagMenu />}
@@ -43,6 +50,7 @@ class MainHeadBar extends React.Component<propTypes> {
           <Button icon="git-push" small title="保存" />
           <Button icon="trash" small title="删除" />
         </ButtonGroup>
+        <HeadLoading />
       </div>
     );
   }

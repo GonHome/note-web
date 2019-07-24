@@ -3,6 +3,7 @@ import Content from './Content';
 import Editor from './Editor';
 import MainHeadBar from './MainHeadBar';
 import EyeEditor from './EyeEditor';
+import { eyeWidthObj } from '../../../models/models';
 type propTypes = {
   height: number,
   width: number;
@@ -12,15 +13,15 @@ type propTypes = {
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;
-  changeIsEye: (isEye: boolean) => void;
+  changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
 };
 class Main extends React.Component<propTypes> {
 
   render() {
-    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEye } = this.props;
+    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth } = this.props;
     return (
       <div className="mainbar layout column" style={{ height, width: width - leftWidth - middleWidth }}>
-        <MainHeadBar isEdit={isEdit} changeIsEdit={changeIsEdit} isEye={isEye} changeIsEye={changeIsEye}/>
+        <MainHeadBar isEdit={isEdit} changeIsEdit={changeIsEdit} isEye={isEye} changeIsEyeWidth={changeIsEyeWidth}/>
         {
           isEye
             ?
