@@ -22,6 +22,12 @@ code {
 }
 
 :focus {
-  outline: rgba(19, 124, 189, 0.6) auto 0px;
-  outline-offset: 0px;
+  outline: rgba(19, 124, 189, 0.6) auto 0;
+  outline-offset: 0;
+}
+
+.head-loading {
+  height: 2px;
+  width: 100%;
+  background-color: #efefef;
 }

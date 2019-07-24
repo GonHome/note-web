@@ -1,6 +1,6 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
-
+import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import reducers from '../reducers';
 import { loadingBarMiddleware } from 'react-redux-loading-bar';
@@ -14,7 +14,7 @@ const composeEnhancers = compose || (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 
 function configureStore(initialState?: {}) {
   // configure middlewares
-  const middlewares = [createEpicMiddleware(), loadingBarMiddleware(), loggerMiddleware];
+  const middlewares = [thunkMiddleware, createEpicMiddleware(), loadingBarMiddleware(), loggerMiddleware];
   // compose enhancers
   const enhancer = composeEnhancers(applyMiddleware(...middlewares));
   // create store

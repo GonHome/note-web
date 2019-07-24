@@ -4,7 +4,7 @@ import * as React from 'react';
 class HeadLoading extends React.Component {
   render() {
     return (
-      <header style={{ height: 2, width: '100%' }}>
+      <header className="head-loading" >
         <LoadingBar />
       </header>
     )

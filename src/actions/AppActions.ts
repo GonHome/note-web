@@ -1,24 +1,23 @@
-import { createStandardAction } from 'typesafe-actions';
 import * as ActionTypes from '../constants/ActionTypes';
 import { sortObj, eyeWidthObj } from '../models/models';
 
-export const moveWidth = createStandardAction(
-  ActionTypes.MOVE_WIDTH_BAR,
-).map((leftWidth: number, middleWidth: number) => ({ leftWidth, middleWidth }));
+export const moveWidth = (leftWidth: number, middleWidth: number) => (dispatch) => {
+  dispatch({ type: ActionTypes.MOVE_WIDTH_BAR, leftWidth, middleWidth });
+};
 
-export const changeDialogType = createStandardAction(
-  ActionTypes.CHANGE_DIALOG_TYPE,
-).map((dialogType: string) => ({ dialogType }));
+export const changeDialogType = (dialogType: string) => (dispatch) => {
+  dispatch({ type: ActionTypes.CHANGE_DIALOG_TYPE, dialogType });
+};
 
-export const changeSort = createStandardAction(
-  ActionTypes.CHANGE_SORT,
-).map((sort: sortObj) => ({ sort }));
+export const changeSort = (sort: sortObj) => (dispatch) => {
+  dispatch({ type: ActionTypes.CHANGE_SORT, sort });
+};
 
-export const changeIsEdit = createStandardAction(
-  ActionTypes.CHANGE_ISEDIT,
-).map((isEdit: boolean) => ({ isEdit }));
+export const changeIsEdit = (isEdit: boolean) => (dispatch) => {
+  dispatch({ type: ActionTypes.CHANGE_ISEDIT, isEdit });
+};
 
-export const changeIsEyeWidth = createStandardAction(
-  ActionTypes.CHANGE_ISEYEWIDTH,
-).map(({ leftWidth, middleWidth, isEye }: eyeWidthObj) => ({ leftWidth, middleWidth, isEye }));
+export const changeIsEyeWidth = ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => (dispatch) => {
+  dispatch({ type: ActionTypes.CHANGE_ISEYEWIDTH, leftWidth, middleWidth, isEye });
+};
 

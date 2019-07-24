@@ -1,7 +1,4 @@
-import { ActionType, getType } from 'typesafe-actions';
-import * as sessionActions from '../actions/SessionActions';
-
-export type actionTypes = ActionType<typeof sessionActions>;
+import * as ActionTypes from '../constants/ActionTypes';
 
 export type sessionTypes = Readonly<{
   userInfo: any;
@@ -13,9 +10,9 @@ const initialState = {
   isLogin: true,
 };
 
-const session = (state = initialState, action: actionTypes) => {
+const session = (state = initialState, action: any) => {
   switch (action.type) {
-    case getType(sessionActions.checkLogin):
+    case ActionTypes.CHECK_LOGIN:
       return { ...state, userInfo: action.userInfo, isLogin: action.isLogin };
     default:
       return state;

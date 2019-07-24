@@ -1,8 +1,5 @@
-import { ActionType, getType } from 'typesafe-actions';
-import * as appActions from '../actions/AppActions';
+import * as ActionTypes from '../constants/ActionTypes';
 import * as CommonConstants from '../constants/CommonConstants';
-
-export type actionTypes = ActionType<typeof appActions>;
 
 const initialState = {
   leftWidth: CommonConstants.LEFT_WIDTH,
@@ -13,17 +10,17 @@ const initialState = {
   isEye: false,
 };
 
-const app = (state = initialState, action: actionTypes) => {
+const app = (state = initialState, action: any) => {
   switch (action.type) {
-    case getType(appActions.moveWidth):
+    case ActionTypes.MOVE_WIDTH_BAR:
       return { ...state, leftWidth: action.leftWidth, middleWidth: action.middleWidth };
-    case getType(appActions.changeDialogType):
+    case ActionTypes.CHANGE_DIALOG_TYPE:
       return { ...state, dialogType: action.dialogType };
-    case getType(appActions.changeSort):
+    case ActionTypes.CHANGE_SORT:
       return { ...state, sort: action.sort };
-    case getType(appActions.changeIsEdit):
+    case ActionTypes.CHANGE_ISEDIT:
       return { ...state, isEdit: action.isEdit };
-    case getType(appActions.changeIsEyeWidth):
+    case ActionTypes.CHANGE_ISEYEWIDTH:
       return { ...state, leftWidth: action.leftWidth, middleWidth: action.middleWidth, isEye: action.isEye };
     default:
       return state;

@@ -32,11 +32,10 @@ export const navigateTo = (route: any, shouldPushState = true) => {
 //   }
 // };
 /* global window */
-export const initRouter = createStandardAction(ActionTypes.CHANGE_ROUTE).map(
-  (paths: path[]) => {
-    const urls = paths.map(item => item.path);
-    const hash = window.location.hash ? window.location.hash.slice(2) : '';
-    const route = parseRoute(hash, urls);
-    return { route };
-  },
-);
+export const initRouter = (paths: path[]) => (dispatch) => {
+  const urls = paths.map(item => item.path);
+  const hash = window.location.hash ? window.location.hash.slice(2) : '';
+  const route = parseRoute(hash, urls);
+  dispatch({ type: ActionTypes.CHANGE_ROUTE, route });
+};
+

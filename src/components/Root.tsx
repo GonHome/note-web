@@ -6,6 +6,7 @@ import HeadContainer from '../containers/HeadContainer';
 import ToolbarContainer from '../containers/ToolbarContainer';
 import AppContainer from '../containers/AppContainer';
 import DialogContainer from '../containers/DialogContainer';
+import LoadingContainer from '../containers/LoadingContainer';
 type propTypes = {
   initRouter: (paths: path[]) => void;
   checkLogin: () => void;
@@ -41,6 +42,7 @@ class Root extends React.Component<propTypes> {
         <div className="body theme-light">
           <HeadContainer />
           <ToolbarContainer />
+          <LoadingContainer />
           <AppContainer />
           <DialogContainer />
         </div>

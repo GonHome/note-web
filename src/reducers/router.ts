@@ -1,8 +1,5 @@
-import { ActionType, getType } from 'typesafe-actions';
-import * as routerActions from '../actions/RouterActions';
+import * as ActionTypes from '../constants/ActionTypes';
 import { INITIAL_ROUTE } from '../constants/CommonConstants';
-
-export type actionTypes = ActionType<typeof routerActions>;
 
 export type routeTypes = Readonly<{
   keys: any;
@@ -17,9 +14,9 @@ const initialState = {
   },
 };
 
-const router = (state = initialState, action: actionTypes) => {
+const router = (state = initialState, action: any) => {
   switch (action.type) {
-    case getType(routerActions.initRouter):
+    case ActionTypes.CHANGE_ROUTE:
       return { ...state, route: action.route };
     default:
       return state;

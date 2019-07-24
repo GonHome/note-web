@@ -1,7 +1,4 @@
-import { ActionType, getType } from 'typesafe-actions';
-import * as environmentActions from '../actions/EnvironmentActions';
-import * as ActionTypes from '../constants/ActionTypes';
-export type actionTypes = ActionType<typeof environmentActions>;
+import * as types from '../constants/ActionTypes';
 
 const initialState = {
   height: window.innerHeight,
@@ -9,11 +6,11 @@ const initialState = {
   theme: 'Light',
 };
 
-const environment = (state = initialState, action: actionTypes) => {
+const environment = (state = initialState, action: any) => {
   switch (action.type) {
-    case ActionTypes.WINDOW_RESIZE:
+    case types.WINDOW_RESIZE:
       return { ...state, width: action.width, height: action.height };
-    case getType(environmentActions.changeTheme):
+    case types.CHANGE_THEME:
       return { ...state, theme: action.theme };
     default:
       return state;

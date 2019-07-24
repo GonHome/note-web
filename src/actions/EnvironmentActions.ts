@@ -1,10 +1,10 @@
-import { createStandardAction } from 'typesafe-actions';
 import * as ActionTypes from '../constants/ActionTypes';
 
-export const initEnvironment = createStandardAction(
-  ActionTypes.WINDOW_RESIZE,
-).map(() => ({ height: window.innerHeight, width: window.innerWidth }));
+export const changeTheme = (theme: string) => (dispatch) => {
+  dispatch({ type: ActionTypes.CHANGE_THEME, theme });
+};
 
-export const changeTheme = createStandardAction(
-  ActionTypes.CHANGE_THEME,
-).map((theme: string) => ({ theme }));
+export const initEnvironment = () => (dispatch) => {
+  dispatch({ type: ActionTypes.WINDOW_RESIZE, height: window.innerHeight, width: window.innerWidth });
+};
+

@@ -3,7 +3,6 @@ import { Button, ButtonGroup, Popover, Position } from '@blueprintjs/core';
 import TagMenu from './TagMenu';
 import { eyeWidthObj } from '../../../models/models';
 import { LEFT_WIDTH, MIDDLE_WIDTH } from '../../../constants/CommonConstants';
-import HeadLoading from './HeadLoading';
 
 type propTypes = {
   isEdit: boolean;
@@ -50,7 +49,6 @@ class MainHeadBar extends React.Component<propTypes> {
           <Button icon="git-push" small title="保存" />
           <Button icon="trash" small title="删除" />
         </ButtonGroup>
-        <HeadLoading />
       </div>
     );
   }
