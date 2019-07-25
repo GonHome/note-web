@@ -5,3 +5,5 @@ export const getDialogType = (state: stateTypes) => state.app.dialogType;
 export const getSort = (state: stateTypes) => state.app.sort;
 export const getIsEdit = (state: stateTypes) => state.app.isEdit;
 export const getIsEye = (state: stateTypes) => state.app.isEye;
+export const getCheckMenu = (state: stateTypes) => state.app.checkMenu;
+export const getCheckNotes = (state: stateTypes) => state.app.checkNotes;

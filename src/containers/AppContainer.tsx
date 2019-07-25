@@ -3,8 +3,16 @@ import { connect } from 'react-redux';
 import { stateTypes } from '../reducers';
 import App from '../components/App/App';
 import { getAppHeight, getTheme, getWidth } from '../selectors/CommonSelectors';
-import { getLeftWidth, getMiddleWidth, getSort, getIsEdit, getIsEye } from '../selectors/AppSelectors';
-import { moveWidth, changeSort, changeIsEdit, changeIsEyeWidth } from '../actions/AppActions';
+import {
+  getLeftWidth,
+  getMiddleWidth,
+  getSort,
+  getIsEdit,
+  getIsEye,
+  getCheckMenu,
+  getCheckNotes
+} from '../selectors/AppSelectors';
+import { moveWidth, changeSort, changeIsEdit, changeIsEyeWidth, changeCheckMenu, changeCheckNotes } from '../actions/AppActions';
 import { sortObj, eyeWidthObj } from '../models/models';
 type propTypes = {
   height: number;
@@ -12,6 +20,8 @@ type propTypes = {
   middleWidth: number;
   width: number;
   sort: sortObj;
+  checkMenu: string;
+  checkNotes: string[];
   moveWidth: (leftWidth: number, middleWidth: number) => void;
   changeSort: (sort: sortObj) => void;
   theme: string;
@@ -19,6 +29,8 @@ type propTypes = {
   isEye: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
+  changeCheckMenu: (checkMenu: string) => void;
+  changeCheckNotes: (checkNotes: string[]) => void;
 };
 
 const AppContainer = (props: propTypes) => <App {...props} />;
@@ -32,6 +44,8 @@ const mapStateToProps = (state: stateTypes) => ({
   theme: getTheme(state),
   isEdit: getIsEdit(state),
   isEye: getIsEye(state),
+  checkMenu: getCheckMenu(state),
+  checkNotes: getCheckNotes(state),
 });
 
 export default connect(
@@ -41,5 +55,7 @@ export default connect(
     changeSort,
     changeIsEdit,
     changeIsEyeWidth,
+    changeCheckMenu,
+    changeCheckNotes,
   },
 )(AppContainer);

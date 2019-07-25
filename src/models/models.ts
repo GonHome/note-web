@@ -96,3 +96,8 @@ export type eyeWidthObj = {
   middleWidth: number;
   isEye: boolean;
 }
+
+export type noteObj = {
+  text: string;
+  code: string;
+}

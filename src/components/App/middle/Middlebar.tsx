@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { InputGroup, Button, Popover, Position } from '@blueprintjs/core';
 import * as _ from 'lodash';
+import * as classNames from 'classnames';
 import SortMenu from './SortMenu';
-import { sortObj, sortOrderObj, sortNameObj } from '../../../models/models';
-import { sortOrders, sortNames } from '../../../constants/AppConstants';
+import { sortObj, sortOrderObj, sortNameObj, noteObj } from '../../../models/models';
+import { sortOrders, sortNames, noteList } from '../../../constants/AppConstants';
 type propTypes = {
   height: number;
   middleWidth: number;
   sort: sortObj;
+  checkNotes: string[];
   changeSort: (sort: sortObj) => void;
+  changeCheckNotes: (checkNotes: string[]) => void;
 };
 class Middlebar extends React.Component<propTypes> {
 
@@ -56,8 +59,29 @@ class Middlebar extends React.Component<propTypes> {
     return null;
   };
 
+  // 单选和多选
+  check = (code :string) => {
+    const { checkNotes, changeCheckNotes } = _.cloneDeep(this.props);
+    const event: any = window.event;
+    if (event.ctrlKey) {
+      if (checkNotes.indexOf(code) >  -1) {
+        const newCheckNotes =  checkNotes.filter((note: string) => {
+          return note !== code;
+        });
+        changeCheckNotes(newCheckNotes);
+      } else {
+        checkNotes.push(code);
+        changeCheckNotes(checkNotes);
+      }
+    } else {
+      changeCheckNotes([code]);
+    }
+  };
+
+
+
   render() {
-    const { middleWidth, height, sort, changeSort } = this.props;
+    const { middleWidth, height, sort, changeSort, checkNotes } = this.props;
     return (
       <div className="middlebar layout column" style={{ width: middleWidth, display: 'block' }}>
         <div className="layout-header toolbar">
@@ -86,12 +110,14 @@ class Middlebar extends React.Component<propTypes> {
           {this.showOrderIcon()}
         </div>
         <div className="list-notes" style={{ height: height - 65 }}>
-          <div className="note-item">
-            测试1
-          </div>
-          <div className="note-item">
-            测试2
-          </div>
+          {noteList.map((note: noteObj) => {
+            return <div
+              className={classNames("note-item", { active: checkNotes.indexOf(note.code) > -1 })}
+              onClick={() => this.check(note.code)}
+            >
+              {note.text}
+            </div>
+          })}
         </div>
       </div>
     );

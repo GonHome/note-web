@@ -8,6 +8,8 @@ const initialState = {
   sort: { sortName: 'name', sortOrder: 'DESC' },
   isEdit: false,
   isEye: false,
+  checkMenu: 'ALL',
+  checkNotes: [],
 };
 
 const app = (state = initialState, action: any) => {
@@ -22,6 +24,10 @@ const app = (state = initialState, action: any) => {
       return { ...state, isEdit: action.isEdit };
     case ActionTypes.CHANGE_ISEYEWIDTH:
       return { ...state, leftWidth: action.leftWidth, middleWidth: action.middleWidth, isEye: action.isEye };
+    case ActionTypes.CHANGE_CHECK_MENU:
+      return { ...state, checkMenu: action.checkMenu };
+    case ActionTypes.CHANGE_CHECK_NOTES:
+      return { ...state, checkNotes: action.checkNotes };
     default:
       return state;
   }

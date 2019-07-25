@@ -1,17 +1,22 @@
 import * as React from 'react';
-import { sideBarList } from '../../../constants/CommonConstants';
+import { sideBarList } from '../../../constants/AppConstants';
 import { sideBarObj } from '../../../models/models';
 import Sidetag from './Sidetag';
 type propTypes = {
   height: number;
   leftWidth: number;
+  checkMenu: string;
+  changeCheckMenu: (checkMenu: string) => void;
 };
 class Sidebar extends React.Component<propTypes> {
 
-  showSideBar = () => sideBarList.map((sideBar: sideBarObj, index: number) => (
-    <Sidetag key={sideBar.code} sideBar={sideBar} index={index} />
+  showSideBar = () => {
+    const { changeCheckMenu, checkMenu } = this.props;
+    return sideBarList.map((sideBar: sideBarObj, index: number) => (
+          <Sidetag key={sideBar.code} sideBar={sideBar} index={index} checkMenu={checkMenu} changeCheckMenu={changeCheckMenu} />
+      )
     )
-  );
+  }
 
   render() {
     const { leftWidth, height } = this.props;

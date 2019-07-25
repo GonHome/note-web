@@ -16,10 +16,14 @@ type propTypes = {
   moveWidth: (leftWidth: number, middleWidth: number) => void;
   changeSort: (sort: sortObj) => void;
   theme: string;
+  checkMenu: string;
+  checkNotes: string[];
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
+  changeCheckMenu: (checkMenu: string) => void;
+  changeCheckNotes: (checkNotes: string[]) => void;
 };
 type stateTypes = {
   isOpen: boolean;
@@ -108,7 +112,7 @@ class App extends React.Component<propTypes, stateTypes> {
   };
 
   render() {
-    const { height, leftWidth, middleWidth, width, changeSort, sort, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth } = this.props;
+    const { height, leftWidth, middleWidth, width, changeSort, sort, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkMenu, changeCheckMenu, checkNotes, changeCheckNotes } = this.props;
     const { isOpen } = this.state;
     return (
       <div className="app" style={{ height }}>
@@ -126,8 +130,8 @@ class App extends React.Component<propTypes, stateTypes> {
             onMouseDown={this.mouseDownMoveSide}
             onMouseUp={this.mouseUpMoveSide}
           />
-          <Sidebar { ...{ height, leftWidth }} />
-          <Middlebar { ...{ height, middleWidth, sort, changeSort }} />
+          <Sidebar { ...{ height, leftWidth, checkMenu, changeCheckMenu }} />
+          <Middlebar { ...{ height, middleWidth, sort, changeSort, checkNotes, changeCheckNotes }} />
           <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth }}/>
         </div>
       </div>

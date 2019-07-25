@@ -21,3 +21,10 @@ export const changeIsEyeWidth = ({ leftWidth, middleWidth, isEye }: eyeWidthObj)
   dispatch({ type: ActionTypes.CHANGE_ISEYEWIDTH, leftWidth, middleWidth, isEye });
 };
 
+export const changeCheckMenu = (checkMenu: string) => (dispatch) => {
+  dispatch({ type: ActionTypes.CHANGE_CHECK_MENU, checkMenu });
+};
+
+export const changeCheckNotes = (checkNotes: string[]) => (dispatch) => {
+  dispatch({ type: ActionTypes.CHANGE_CHECK_NOTES, checkNotes });
+};
