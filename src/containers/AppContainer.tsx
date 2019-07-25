@@ -10,7 +10,7 @@ import {
   getIsEdit,
   getIsEye,
   getCheckMenu,
-  getCheckNotes
+  getCheckNotes,
 } from '../selectors/AppSelectors';
 import { moveWidth, changeSort, changeIsEdit, changeIsEyeWidth, changeCheckMenu, changeCheckNotes } from '../actions/AppActions';
 import { sortObj, eyeWidthObj } from '../models/models';

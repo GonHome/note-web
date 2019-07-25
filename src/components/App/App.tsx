@@ -132,7 +132,7 @@ class App extends React.Component<propTypes, stateTypes> {
           />
           <Sidebar { ...{ height, leftWidth, checkMenu, changeCheckMenu }} />
           <Middlebar { ...{ height, middleWidth, sort, changeSort, checkNotes, changeCheckNotes }} />
-          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth }}/>
+          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes }}/>
         </div>
       </div>
     );

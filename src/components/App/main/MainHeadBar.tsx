@@ -32,7 +32,7 @@ class MainHeadBar extends React.Component<propTypes> {
       <div className="layout-header toolbar main-header">
         <ButtonGroup>
           <Button icon="edit" small title="编辑" active={isEdit} onClick={this.changeEdit} disabled={isEye}/>
-          <Button icon="eye-on" small title="可视界面" active={isEye} onClick={this.changeEye}/>
+          <Button icon="translate" small title="可视界面" active={isEye} onClick={this.changeEye}/>
           <Popover
             content={<TagMenu />}
             position={Position.BOTTOM}

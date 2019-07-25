@@ -1,7 +1,9 @@
 import * as React from 'react';
+import * as classNames from 'classnames';
 import Content from './Content';
 import Editor from './Editor';
 import MainHeadBar from './MainHeadBar';
+import MultiEditor from './MultiEditor';
 import EyeEditor from './EyeEditor';
 import { eyeWidthObj } from '../../../models/models';
 type propTypes = {
@@ -14,30 +16,38 @@ type propTypes = {
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
+  checkNotes: string[];
 };
 class Main extends React.Component<propTypes> {
 
   render() {
-    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth } = this.props;
+    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes } = this.props;
     return (
-      <div className="mainbar layout column" style={{ height, width: width - leftWidth - middleWidth }}>
-        <MainHeadBar isEdit={isEdit} changeIsEdit={changeIsEdit} isEye={isEye} changeIsEyeWidth={changeIsEyeWidth}/>
-        {
-          isEye
-            ?
-            <EyeEditor { ... this.props } />
-            :
-            (
-              isEdit ?
-                <Editor
-                  height={height}
-                  width={width - leftWidth - middleWidth}
-                  theme={theme}
-                  isEdit={isEdit}
-                />
+      <div
+        className={classNames("mainbar layout column", { multi: checkNotes.length > 1 } )}
+        style={{ height, width: width - leftWidth - middleWidth }}>
+        { checkNotes.length > 1 ? <MultiEditor checkNotes={checkNotes}/> :
+          <div style={{ height: '100%' }}>
+            <MainHeadBar isEdit={ isEdit } changeIsEdit={ changeIsEdit } isEye={ isEye }
+                         changeIsEyeWidth={ changeIsEyeWidth }/>
+            {
+              isEye
+                ?
+                <EyeEditor { ...this.props } />
                 :
-                <Content height={height}/>
-            )
+                (
+                  isEdit ?
+                    <Editor
+                      height={ height }
+                      width={ width - leftWidth - middleWidth }
+                      theme={ theme }
+                      isEdit={ isEdit }
+                    />
+                    :
+                    <Content height={ height }/>
+                )
+            }
+          </div>
         }
       </div>
     );
