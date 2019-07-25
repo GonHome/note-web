@@ -432,7 +432,10 @@
   border-bottom-style: solid;
   width: 100%;
   .bp3-button {
-    width: 30px;
+    min-width: 30px;
+    .bp3-button-text {
+      color: black;
+    }
   }
   .bp3-button-group {
     margin: 0 5px ;

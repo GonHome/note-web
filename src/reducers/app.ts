@@ -10,6 +10,7 @@ const initialState = {
   isEye: false,
   checkMenu: 'ALL',
   checkNotes: [],
+  language: 'markdown',
 };
 
 const app = (state = initialState, action: any) => {
@@ -28,6 +29,8 @@ const app = (state = initialState, action: any) => {
       return { ...state, checkMenu: action.checkMenu };
     case ActionTypes.CHANGE_CHECK_NOTES:
       return { ...state, checkNotes: action.checkNotes };
+    case ActionTypes.CHANGE_LANGUAGE:
+      return { ...state, language: action.language };
     default:
       return state;
   }

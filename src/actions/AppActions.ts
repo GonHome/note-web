@@ -28,3 +28,7 @@ export const changeCheckMenu = (checkMenu: string) => (dispatch) => {
 export const changeCheckNotes = (checkNotes: string[]) => (dispatch) => {
   dispatch({ type: ActionTypes.CHANGE_CHECK_NOTES, checkNotes });
 };
+
+export const changeLanguage = (language: string) => (dispatch) => {
+  dispatch({ type: ActionTypes.CHANGE_LANGUAGE, language });
+};

@@ -7,3 +7,4 @@ export const getIsEdit = (state: stateTypes) => state.app.isEdit;
 export const getIsEye = (state: stateTypes) => state.app.isEye;
 export const getCheckMenu = (state: stateTypes) => state.app.checkMenu;
 export const getCheckNotes = (state: stateTypes) => state.app.checkNotes;
+export const getLanguage = (state: stateTypes) => state.app.language;

@@ -12,16 +12,18 @@ type propTypes = {
   leftWidth: number,
   middleWidth: number,
   theme: string;
+  language: string;
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
+  changeLanguage: (language: string) => void;
   checkNotes: string[];
 };
 class Main extends React.Component<propTypes> {
 
   render() {
-    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes } = this.props;
+    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, language, changeLanguage } = this.props;
     return (
       <div
         className={classNames("mainbar layout column", { multi: checkNotes.length > 1 } )}
@@ -29,7 +31,7 @@ class Main extends React.Component<propTypes> {
         { checkNotes.length > 1 ? <MultiEditor checkNotes={checkNotes}/> :
           <div style={{ height: '100%' }}>
             <MainHeadBar isEdit={ isEdit } changeIsEdit={ changeIsEdit } isEye={ isEye }
-                         changeIsEyeWidth={ changeIsEyeWidth }/>
+                         changeIsEyeWidth={ changeIsEyeWidth } language={language} changeLanguage={changeLanguage} />
             {
               isEye
                 ?
@@ -42,6 +44,7 @@ class Main extends React.Component<propTypes> {
                       width={ width - leftWidth - middleWidth }
                       theme={ theme }
                       isEdit={ isEdit }
+                      language={language}
                     />
                     :
                     <Content height={ height }/>

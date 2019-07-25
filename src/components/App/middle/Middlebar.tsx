@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { InputGroup, Button, Popover, Position } from '@blueprintjs/core';
+import { InputGroup, Button, Popover, Position, ContextMenu, Menu, MenuItem } from '@blueprintjs/core';
 import * as _ from 'lodash';
 import * as classNames from 'classnames';
 import SortMenu from './SortMenu';
 import { sortObj, sortOrderObj, sortNameObj, noteObj } from '../../../models/models';
 import { sortOrders, sortNames, noteList } from '../../../constants/AppConstants';
+
 type propTypes = {
   height: number;
   middleWidth: number;
@@ -78,7 +79,21 @@ class Middlebar extends React.Component<propTypes> {
     }
   };
 
-
+  showContextMenu = (e: any, note: noteObj) => {
+    const menu =
+      <Menu>
+        <MenuItem text="关注" />
+        <MenuItem text="删除" />
+        <MenuItem text="永久删除"/>
+      </Menu>;
+    if(e.button === 2) {
+      ContextMenu.show(
+        menu, { left: e.clientX, top: e.clientY },
+      );
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
 
   render() {
     const { middleWidth, height, sort, changeSort, checkNotes } = this.props;
@@ -114,6 +129,7 @@ class Middlebar extends React.Component<propTypes> {
             return <div
               className={classNames("note-item", { active: checkNotes.indexOf(note.code) > -1 })}
               onClick={() => this.check(note.code)}
+              onContextMenu={(e) => this.showContextMenu(e, note)}
             >
               {note.text}
             </div>

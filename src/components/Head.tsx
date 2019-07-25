@@ -11,32 +11,22 @@ const Login = (props: propTypes) => {
       <img src='logo.svg' />
       <div className="head-logo-text">
         <div className="title hover-link">
-          <span>数</span>
-          <span>据</span>
-          <span>文</span>
-          <span>本</span>
-          <span>M</span>
           <span>A</span>
-          <span>R</span>
-          <span>K</span>
-          <span>D</span>
-          <span>O</span>
-          <span>W</span>
-          <span>N</span>
+          <span>I</span>
+          <span>&nbsp;</span>
+          <span>编</span>
+          <span>辑</span>
+          <span>笔</span>
+          <span>记</span>
         </div>
         <div className="title hover-link">
-          <span>数</span>
-          <span>据</span>
-          <span>文</span>
-          <span>本</span>
-          <span>M</span>
           <span>A</span>
-          <span>R</span>
-          <span>K</span>
-          <span>D</span>
-          <span>O</span>
-          <span>W</span>
-          <span>N</span>
+          <span>I</span>
+          <span>&nbsp;</span>
+          <span>编</span>
+          <span>辑</span>
+          <span>笔</span>
+          <span>记</span>
         </div>
       </div>
     </div>

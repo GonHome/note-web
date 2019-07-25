@@ -65,10 +65,12 @@ type propTypes = {
   width: number;
   theme: string;
   isEdit: boolean;
+  language:string;
 };
 type stateTypes = {
   content: string;
   theme: string;
+  language: string;
 }
 const content = "\n" +
   "# 02 - The Sidebar\n" +
@@ -87,7 +89,6 @@ const content = "\n" +
   "\n" +
   "You can create sub-categories in the following sections: Notebooks, Tags and Templates by using nested tags.\n";
 class Editor extends React.Component<propTypes, stateTypes> {
-  private content;
   private ref;
   private editor;
   constructor(props: propTypes) {
@@ -95,6 +96,7 @@ class Editor extends React.Component<propTypes, stateTypes> {
     this.state = {
       content: _.cloneDeep(content),
       theme: 'Light',
+      language: 'markdown',
     }
   }
 
@@ -103,21 +105,22 @@ class Editor extends React.Component<propTypes, stateTypes> {
   }
 
   componentWillReceiveProps(nextProps: Readonly<propTypes>, nextContext: any): void {
-    if (nextProps.theme !== this.state.theme) {
-      const { theme } = nextProps;
+    if (nextProps.theme !== this.state.theme || nextProps.language !== this.state.language ) {
       if (this.editor) {
-        monaco.editor.setTheme(theme === 'Light' ? 'vs' : 'vs-dark');
+        this.ref.removeChild(this.ref.firstChild);
+        this.initMonaco(nextProps);
       }
-      this.setState({ theme: nextProps.theme });
+      this.setState({ theme: nextProps.theme, language: nextProps.language });
     }
   }
 
   initMonaco = (props: propTypes) => {
-    const { theme } = props;
+    const { theme, language } = props;
+    console.log(language);
     this.editor = monaco.editor.create ( this.ref,
       {
         lineNumbers: 'off',
-        language: 'markdown',
+        language: language,
         value: content,
         lineHeight: 21,
         theme: theme === 'Light' ? 'vs' : 'vs-dark',
@@ -133,7 +136,7 @@ class Editor extends React.Component<propTypes, stateTypes> {
   render() {
     return (
       <div className="layout-content editor">
-        <div className="editor-content"  ref={e => this.content = e} >
+        <div className="editor-content" >
           <div
             ref={e => this.ref = e}
             className={"high-content"}

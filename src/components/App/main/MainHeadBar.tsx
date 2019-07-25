@@ -1,14 +1,18 @@
 import * as React from 'react';
 import { Button, ButtonGroup, Popover, Position } from '@blueprintjs/core';
 import TagMenu from './TagMenu';
+import LanguageMenu from './LanguageMenu';
 import { eyeWidthObj } from '../../../models/models';
 import { LEFT_WIDTH, MIDDLE_WIDTH } from '../../../constants/CommonConstants';
+
 
 type propTypes = {
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;
+  language: string;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
+  changeLanguage: (language: string) => void;
 };
 class MainHeadBar extends React.Component<propTypes> {
 
@@ -27,7 +31,7 @@ class MainHeadBar extends React.Component<propTypes> {
   };
 
   render() {
-    const { isEdit, isEye } = this.props;
+    const { isEdit, isEye, language, changeLanguage } = this.props;
     return (
       <div className="layout-header toolbar main-header">
         <ButtonGroup>
@@ -49,6 +53,12 @@ class MainHeadBar extends React.Component<propTypes> {
           <Button icon="git-push" small title="保存" />
           <Button icon="trash" small title="删除" />
         </ButtonGroup>
+        <Popover
+          content={<LanguageMenu language={language} changeLanguage={changeLanguage}/>}
+          position={Position.BOTTOM}
+        >
+          <Button icon="font" small title="语言" text={language} />
+        </Popover>
       </div>
     );
   }

@@ -90,3 +90,5 @@ export const noteList = [
     code: '8',
   }
 ];
+
+export const languages = ['markdown', 'sql', 'xml', 'json', 'html', 'java'];

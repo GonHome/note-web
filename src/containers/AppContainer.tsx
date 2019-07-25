@@ -11,8 +11,9 @@ import {
   getIsEye,
   getCheckMenu,
   getCheckNotes,
+  getLanguage,
 } from '../selectors/AppSelectors';
-import { moveWidth, changeSort, changeIsEdit, changeIsEyeWidth, changeCheckMenu, changeCheckNotes } from '../actions/AppActions';
+import { moveWidth, changeSort, changeIsEdit, changeIsEyeWidth, changeCheckMenu, changeCheckNotes, changeLanguage } from '../actions/AppActions';
 import { sortObj, eyeWidthObj } from '../models/models';
 type propTypes = {
   height: number;
@@ -25,12 +26,14 @@ type propTypes = {
   moveWidth: (leftWidth: number, middleWidth: number) => void;
   changeSort: (sort: sortObj) => void;
   theme: string;
+  language: string;
   isEdit: boolean;
   isEye: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   changeCheckMenu: (checkMenu: string) => void;
   changeCheckNotes: (checkNotes: string[]) => void;
+  changeLanguage: (language: string) => void;
 };
 
 const AppContainer = (props: propTypes) => <App {...props} />;
@@ -46,6 +49,7 @@ const mapStateToProps = (state: stateTypes) => ({
   isEye: getIsEye(state),
   checkMenu: getCheckMenu(state),
   checkNotes: getCheckNotes(state),
+  language: getLanguage(state),
 });
 
 export default connect(
@@ -57,5 +61,6 @@ export default connect(
     changeIsEyeWidth,
     changeCheckMenu,
     changeCheckNotes,
+    changeLanguage,
   },
 )(AppContainer);
