@@ -14,6 +14,8 @@ export const CHANGE_ISEYEWIDTH = 'CHANGE_ISEYEWIDTH';
 export const CHANGE_CHECK_MENU = 'CHANGE_CHECK_MENU';
 export const CHANGE_CHECK_NOTES = 'CHANGE_CHECK_NOTES';
 export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
+export const INIT_NOTES = 'INIT_NOTES';
+export const CHANGE_SEARCH = 'CHANGE_SEARCH';
 // session
 export const CHECK_LOGIN = 'CHECK_LOGIN';
 

@@ -64,7 +64,7 @@ export const toolbars: toolbarsObj = [
                 text: '关注',
             },
             {
-                text: '固定',
+                text: '置顶',
             },
             {
                 text: '删除',

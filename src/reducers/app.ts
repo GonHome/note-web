@@ -6,11 +6,16 @@ const initialState = {
   middleWidth: CommonConstants.MIDDLE_WIDTH,
   dialogType: '',
   sort: { sortName: 'name', sortOrder: 'DESC' },
-  isEdit: false,
+  isEdit: true,
   isEye: false,
   checkMenu: 'ALL',
   checkNotes: [],
-  language: 'markdown',
+  language: 'sql',
+  notes: [],
+  search: '',
+  leftLoading: false,
+  middleLoading: false,
+  mainLoading: false,
 };
 
 const app = (state = initialState, action: any) => {
@@ -31,6 +36,10 @@ const app = (state = initialState, action: any) => {
       return { ...state, checkNotes: action.checkNotes };
     case ActionTypes.CHANGE_LANGUAGE:
       return { ...state, language: action.language };
+    case ActionTypes.INIT_NOTES:
+      return { ...state, notes: action.notes, checkNotes: action.checkNotes };
+    case ActionTypes.CHANGE_SEARCH:
+      return { ...state, search: action.search };
     default:
       return state;
   }

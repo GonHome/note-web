@@ -6,6 +6,7 @@ import MainHeadBar from './MainHeadBar';
 import MultiEditor from './MultiEditor';
 import EyeEditor from './EyeEditor';
 import { eyeWidthObj } from '../../../models/models';
+import EditSql from "./EditSql";
 type propTypes = {
   height: number,
   width: number;
@@ -19,6 +20,7 @@ type propTypes = {
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   changeLanguage: (language: string) => void;
   checkNotes: string[];
+  mainLoading: boolean;
 };
 class Main extends React.Component<propTypes> {
 
@@ -39,7 +41,7 @@ class Main extends React.Component<propTypes> {
                 :
                 (
                   isEdit ?
-                    <Editor
+                    <EditSql
                       height={ height }
                       width={ width - leftWidth - middleWidth }
                       theme={ theme }

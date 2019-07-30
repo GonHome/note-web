@@ -6,7 +6,7 @@ import Main from './main/Main';
 import {
   LEFT_MAX_WIDTH, LEFT_MIN_WIDTH, MIDDLE_MAX_WIDTH, MIDDLE_MIN_WIDTH,
 } from '../../constants/CommonConstants';
-import { eyeWidthObj, sortObj } from '../../models/models';
+import { eyeWidthObj, searchObj, sortObj } from '../../models/models';
 type propTypes = {
   height: number;
   width: number;
@@ -14,18 +14,26 @@ type propTypes = {
   middleWidth: number;
   sort: sortObj;
   moveWidth: (leftWidth: number, middleWidth: number) => void;
+  initNotes: (params: searchObj, checkNote: string | undefined) => void;
   changeSort: (sort: sortObj) => void;
   theme: string;
   checkMenu: string;
   language: string;
+  search: string;
   checkNotes: string[];
+  notes: any[];
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;
+  leftLoading: boolean;
+  middleLoading: boolean;
+  mainLoading: boolean;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   changeCheckMenu: (checkMenu: string) => void;
   changeCheckNotes: (checkNotes: string[]) => void;
   changeLanguage: (language: string) => void;
+  changeSearch: (search: string) => void;
+  addNotes: () => void;
 };
 type stateTypes = {
   isOpen: boolean;
@@ -41,6 +49,16 @@ class App extends React.Component<propTypes, stateTypes> {
 
   test = () => {
     this.setState({ isOpen: true });
+  };
+
+  componentDidMount(): void {
+    this.searchNotes();
+  }
+
+  searchNotes = () => {
+    const { initNotes, search, sort, checkNotes } = this.props;
+    const { sortName, sortOrder } = sort;
+    initNotes({ search, sortName, sortOrder }, checkNotes.length > 2 ? undefined : checkNotes[0]);
   };
 
   mouseDownMoveMiddle = (e: any) => {
@@ -114,7 +132,32 @@ class App extends React.Component<propTypes, stateTypes> {
   };
 
   render() {
-    const { height, leftWidth, middleWidth, width, changeSort, sort, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkMenu, changeCheckMenu, checkNotes, changeCheckNotes, language, changeLanguage } = this.props;
+    const {
+      height,
+      leftWidth,
+      middleWidth,
+      width,
+      changeSort,
+      sort,
+      theme,
+      isEdit,
+      changeIsEdit,
+      isEye,
+      changeIsEyeWidth,
+      checkMenu,
+      changeCheckMenu,
+      checkNotes,
+      changeCheckNotes,
+      language,
+      changeLanguage,
+      notes,
+      changeSearch,
+      search,
+      addNotes,
+      leftLoading,
+      middleLoading,
+      mainLoading,
+    } = this.props;
     const { isOpen } = this.state;
     return (
       <div className="app" style={{ height }}>
@@ -132,9 +175,9 @@ class App extends React.Component<propTypes, stateTypes> {
             onMouseDown={this.mouseDownMoveSide}
             onMouseUp={this.mouseUpMoveSide}
           />
-          <Sidebar { ...{ height, leftWidth, checkMenu, changeCheckMenu }} />
-          <Middlebar { ...{ height, middleWidth, sort, changeSort, checkNotes, changeCheckNotes }} />
-          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, language, changeLanguage }}/>
+          <Sidebar { ...{ height, leftWidth, checkMenu, changeCheckMenu, leftLoading }} />
+          <Middlebar { ...{ height, middleWidth, sort, changeSort, checkNotes, changeCheckNotes, notes, changeSearch, search, addNotes, middleLoading }} searchNotes={this.searchNotes} />
+          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, language, changeLanguage, mainLoading }}/>
         </div>
       </div>
     );

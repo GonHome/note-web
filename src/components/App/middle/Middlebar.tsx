@@ -1,27 +1,36 @@
 import * as React from 'react';
-import { InputGroup, Button, Popover, Position, ContextMenu, Menu, MenuItem } from '@blueprintjs/core';
+import { InputGroup, Button, Popover, Position, ContextMenu, Menu, MenuItem, Spinner } from '@blueprintjs/core';
 import * as _ from 'lodash';
 import * as classNames from 'classnames';
 import SortMenu from './SortMenu';
 import { sortObj, sortOrderObj, sortNameObj, noteObj } from '../../../models/models';
-import { sortOrders, sortNames, noteList } from '../../../constants/AppConstants';
+import { sortOrders, sortNames } from '../../../constants/AppConstants';
 
 type propTypes = {
   height: number;
   middleWidth: number;
   sort: sortObj;
   checkNotes: string[];
+  notes: any[];
   changeSort: (sort: sortObj) => void;
   changeCheckNotes: (checkNotes: string[]) => void;
+  search: string;
+  changeSearch: (search: string) => void;
+  searchNotes: () => void;
+  addNotes: () => void;
+  middleLoading: boolean;
 };
+
 class Middlebar extends React.Component<propTypes> {
 
-  searchButton = (
-    <Button
+  searchButton = () => {
+    const { searchNotes } = this.props;
+    return <Button
       icon="search"
       minimal
+      onClick={searchNotes}
     />
-  );
+  };
 
   changeSortOrder = () => {
     const { sort, changeSort } = _.cloneDeep(this.props);
@@ -95,8 +104,23 @@ class Middlebar extends React.Component<propTypes> {
     }
   };
 
+  focusSearch = () => {
+    document.body.addEventListener('keyup', this.keyUpEvent);
+  };
+
+  blurSearch = (e: React.FormEvent<HTMLInputElement>) => {
+    const { changeSearch } = this.props;
+    document.body.removeEventListener('keyup', this.keyUpEvent);
+    changeSearch(e.currentTarget.value)
+  };
+
+  keyUpEvent = () => {
+    const { searchNotes } = this.props;
+    searchNotes();
+  };
+
   render() {
-    const { middleWidth, height, sort, changeSort, checkNotes } = this.props;
+    const { middleWidth, height, sort, changeSort, checkNotes, notes, addNotes, middleLoading } = this.props;
     return (
       <div className="middlebar layout column" style={{ width: middleWidth, display: 'block' }}>
         <div className="layout-header toolbar">
@@ -105,12 +129,14 @@ class Middlebar extends React.Component<propTypes> {
               <InputGroup
                 id="search"
                 placeholder="Search..."
-                rightElement={this.searchButton}
+                rightElement={this.searchButton()}
                 small
                 type="text"
+                onBlur={e => this.blurSearch(e)}
+                onFocus={this.focusSearch}
               />
             </div>
-            <Button icon="plus" small title="添加"/>
+            <Button icon="plus" small title="添加" onClick={addNotes}/>
           </div>
         </div>
         <div className="layout-header list-header">
@@ -125,13 +151,15 @@ class Middlebar extends React.Component<propTypes> {
           {this.showOrderIcon()}
         </div>
         <div className="list-notes" style={{ height: height - 65 }}>
-          {noteList.map((note: noteObj) => {
+          {middleLoading ? <Spinner className="spiner"/> : null}
+          {notes.map((note: any) => {
             return <div
-              className={classNames("note-item", { active: checkNotes.indexOf(note.code) > -1 })}
-              onClick={() => this.check(note.code)}
+              key={note.id}
+              className={classNames("note-item", { active: checkNotes.indexOf(note.id) > -1 })}
+              onClick={() => this.check(note.id)}
               onContextMenu={(e) => this.showContextMenu(e, note)}
             >
-              {note.text}
+              {note.name}
             </div>
           })}
         </div>

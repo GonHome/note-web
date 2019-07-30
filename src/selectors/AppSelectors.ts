@@ -8,3 +8,8 @@ export const getIsEye = (state: stateTypes) => state.app.isEye;
 export const getCheckMenu = (state: stateTypes) => state.app.checkMenu;
 export const getCheckNotes = (state: stateTypes) => state.app.checkNotes;
 export const getLanguage = (state: stateTypes) => state.app.language;
+export const getNotes = (state: stateTypes) => state.app.notes;
+export const getSearch = (state: stateTypes) => state.app.search;
+export const getLeftLoading = (state: stateTypes) => state.app.leftLoading;
+export const getMiddleLoading = (state: stateTypes) => state.app.middleLoading;
+export const getMainLoading = (state: stateTypes) => state.app.mainLoading;

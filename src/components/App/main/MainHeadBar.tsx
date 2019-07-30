@@ -47,7 +47,7 @@ class MainHeadBar extends React.Component<propTypes> {
         </ButtonGroup>
         <ButtonGroup>
           <Button icon="star-empty" small title="关注" />
-          <Button icon="pin" small title="固定" />
+          <Button icon="pin" small title="置顶" />
         </ButtonGroup>
         <ButtonGroup>
           <Button icon="git-push" small title="保存" />

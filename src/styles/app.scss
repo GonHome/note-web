@@ -159,6 +159,13 @@
     .list-notes {
       overflow-y: auto;
       overflow-x: hidden;
+      .spiner {
+        position: absolute;
+        z-index: 99;
+        width: 100%;
+        height: 100%;
+        background: #efefef57;
+      }
       .note-item {
         height: 32px;
         padding: 7px 5px;
@@ -261,7 +268,7 @@
     }
   }
   .multiple {
-    .bp3-button {
+    .bp3-button:not(.bp3-minimal) {
       margin: 0 5px;
     }
   }
@@ -422,6 +429,9 @@
       }
       .bp3-input-group {
         margin-bottom: 10px;
+        .bp3-icon {
+          color: black !important;
+        }
       }
     }
   }

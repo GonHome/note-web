@@ -101,3 +101,9 @@ export type noteObj = {
   text: string;
   code: string;
 }
+
+export type searchObj = {
+  search: string;
+  sortName: string;
+  sortOrder: string;
+}

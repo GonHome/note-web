@@ -7,6 +7,7 @@ type propTypes = {
   leftWidth: number;
   checkMenu: string;
   changeCheckMenu: (checkMenu: string) => void;
+  leftLoading: boolean;
 };
 class Sidebar extends React.Component<propTypes> {
 

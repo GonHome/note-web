@@ -3,12 +3,12 @@ const proxy = require('http-proxy-middleware');
 
 module.exports = function (app) {
   app.use(
-    proxy('/dm-manager/', {
-      target: 'http://www.zhili-tech.com:18080/dm-manager/',
+    proxy('/api/', {
+      target: 'http://127.0.0.1:3002/',
       ws: true,
       secure: false,
       pathRewrite: {
-        '^/dm-manager/': '',
+        '^/api/': '',
       },
     }),
   );

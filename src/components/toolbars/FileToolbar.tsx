@@ -61,7 +61,7 @@ class FileToolbar extends Toolbar {
           visiable: true,
         },
         {
-          text: '固定',
+          text: '置顶',
           visiable: true,
         },
         {

@@ -12,9 +12,25 @@ import {
   getCheckMenu,
   getCheckNotes,
   getLanguage,
+  getNotes,
+  getSearch,
+  getLeftLoading,
+  getMiddleLoading,
+  getMainLoading,
 } from '../selectors/AppSelectors';
-import { moveWidth, changeSort, changeIsEdit, changeIsEyeWidth, changeCheckMenu, changeCheckNotes, changeLanguage } from '../actions/AppActions';
-import { sortObj, eyeWidthObj } from '../models/models';
+import {
+  moveWidth,
+  changeSort,
+  changeIsEdit,
+  changeIsEyeWidth,
+  changeCheckMenu,
+  changeCheckNotes,
+  changeLanguage,
+  initNotes,
+  changeSearch,
+  addNotes,
+} from '../actions/AppActions';
+import { sortObj, eyeWidthObj, searchObj } from '../models/models';
 type propTypes = {
   height: number;
   leftWidth: number;
@@ -24,16 +40,24 @@ type propTypes = {
   checkMenu: string;
   checkNotes: string[];
   moveWidth: (leftWidth: number, middleWidth: number) => void;
+  initNotes: (params: searchObj, checkNote: string | undefined) => void;
   changeSort: (sort: sortObj) => void;
   theme: string;
   language: string;
+  search: string;
+  notes: any[];
   isEdit: boolean;
   isEye: boolean;
+  leftLoading: boolean;
+  middleLoading: boolean;
+  mainLoading: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   changeCheckMenu: (checkMenu: string) => void;
   changeCheckNotes: (checkNotes: string[]) => void;
   changeLanguage: (language: string) => void;
+  changeSearch: (search: string) => void;
+  addNotes: () => void;
 };
 
 const AppContainer = (props: propTypes) => <App {...props} />;
@@ -50,6 +74,11 @@ const mapStateToProps = (state: stateTypes) => ({
   checkMenu: getCheckMenu(state),
   checkNotes: getCheckNotes(state),
   language: getLanguage(state),
+  notes: getNotes(state),
+  search: getSearch(state),
+  leftLoading: getLeftLoading(state),
+  middleLoading: getMiddleLoading(state),
+  mainLoading: getMainLoading(state),
 });
 
 export default connect(
@@ -62,5 +91,8 @@ export default connect(
     changeCheckMenu,
     changeCheckNotes,
     changeLanguage,
+    initNotes,
+    changeSearch,
+    addNotes,
   },
 )(AppContainer);

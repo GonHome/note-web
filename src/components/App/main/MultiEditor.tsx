@@ -37,8 +37,8 @@ class MultiEditor extends React.Component<propTypes> {
               </Col>
               <Col xs={6} md={6}>
                 <ButtonGroup className="button-group">
-                  <Button className="button-50 button" icon={<Icon icon="unpin" iconSize={24} />}title="取消固定" large />
-                  <Button className="button-50 button" icon={<Icon icon="pin" iconSize={24} />} title="固定" large />
+                  <Button className="button-50 button" icon={<Icon icon="unpin" iconSize={24} />}title="取消置顶" large />
+                  <Button className="button-50 button" icon={<Icon icon="pin" iconSize={24} />} title="置顶" large />
                 </ButtonGroup>
               </Col>
             </Row>

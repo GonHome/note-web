@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as _ from 'lodash';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
+import MonacoEditor from 'react-monaco-editor';
 import 'monaco-editor/esm/vs/editor/contrib/dnd/dnd.js';
 import 'monaco-editor/esm/vs/editor/contrib/linesOperations/linesOperations.js';
 import 'monaco-editor/esm/vs/editor/contrib/multicursor/multicursor.js';
@@ -58,7 +57,13 @@ import 'monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution.
 import 'monaco-editor/esm/vs/basic-languages/vb/vb.contribution.js';
 import 'monaco-editor/esm/vs/basic-languages/xml/xml.contribution.js';
 import 'monaco-editor/esm/vs/basic-languages/yaml/yaml.contribution.js';
-import { MonacoEditor } from '../../../models/models';
+import 'monaco-editor/esm/vs/editor/contrib/suggest/suggestController.js';
+import 'monaco-editor/esm/vs/editor/contrib/bracketMatching/bracketMatching.js';
+import 'monaco-editor/esm/vs/editor/contrib/hover/hover.js';
+import 'monaco-editor/esm/vs/editor/contrib/find/findController.js';
+import { language as mysqlLanguage } from 'monaco-editor/esm/vs/basic-languages/mysql/mysql.js';
+const { Parser } = require('node-sql-parser');
+const parser = new Parser();
 
 type propTypes = {
   height: number;
@@ -72,81 +77,117 @@ type stateTypes = {
   theme: string;
   language: string;
 }
-const content = "\n" +
-  "# 02 - The Sidebar\n" +
-  "\n" +
-  "The sidebar is where all your notes are categorized.\n" +
-  "\n" +
-  "## Categories\n" +
-  "\n" +
-  "- **All Notes**: This section contains all notes.\n" +
-  "- **Favorites**: This section contains all notes you've favorited.\n" +
-  "- **Notebooks**: This section contains all notes tagged with the special `Notebooks/*` tag.\n" +
-  "- **Tags**: This section contains all notes tagged with any tag except the special ones: `Notebooks/*` and `Templates/*`.\n" +
-  "- **Templates**: This section contains all notes tagged with the special `Templates/*` tag. These notes won't be displayed in any other category.\n" +
-  "- **Untagged**: This section contains all notes that have no tags.\n" +
-  "- **Trash**: This section contains all notes that have been deleted. These notes won't be displayed in any other category.\n" +
-  "\n" +
-  "You can create sub-categories in the following sections: Notebooks, Tags and Templates by using nested tags.\n";
-class Editor extends React.Component<propTypes, stateTypes> {
-  private ref;
-  private editor;
-  constructor(props: propTypes) {
-    super(props);
-    this.state = {
-      content: _.cloneDeep(content),
-      theme: 'Light',
-      language: 'markdown',
-    }
-  }
+const content = "";
+class EditSql extends React.Component<propTypes, stateTypes> {
 
-  componentDidMount(): void {
-    this.initMonaco (this.props);
-  }
 
-  componentWillReceiveProps(nextProps: Readonly<propTypes>, nextContext: any): void {
-    if (nextProps.theme !== this.state.theme || nextProps.language !== this.state.language ) {
-      if (this.editor) {
-        this.ref.removeChild(this.ref.firstChild);
-        this.initMonaco(nextProps);
-      }
-      this.setState({ theme: nextProps.theme, language: nextProps.language });
-    }
-  }
-
-  initMonaco = (props: propTypes) => {
-    const { theme, language } = props;
-    this.editor = monaco.editor.create ( this.ref,
+  editorDidMount(editor, monaco) {
+    const suggestion = [{
+      label: '测试1',
+      insertText: '测试1', // 不写的时候不展示。。
+      detail: '提示的文字'
+    },
       {
-        lineNumbers: 'off',
-        language: language,
-        value: content,
-        lineHeight: 21,
-        theme: theme === 'Light' ? 'vs' : 'vs-dark',
-        minimap: { enabled: false },
-        wordWrap: 'on',
-      }) as unknown as MonacoEditor; //TSC //UGLY
-    this.editor.onDidChangeModelContent( event => {
-      const value = this.editor.getValue ();
-      this.setState({ content: value });
-    })
-  };
+        label: '测试2',
+        insertText: '测试22',
+        detail: '提示的文字'
+      },
+      {
+        label: '测试3',
+        insertText: '测试3',
+        detail: '提示的文字'
+      }];
+    monaco.languages.registerCompletionItemProvider('sql',
+    { provideCompletionItems: function(model, position) {
+      const textUntilPosition = model.getValueInRange({
+        startLineNumber: position.lineNumber,
+        startColumn: 1,
+        endLineNumber: position.lineNumber,
+        endColumn: position.column
+      });
+      const match1 = textUntilPosition.match(/(\S+)$/);
+      if (!match1) return [];
+      const match = match1[0].toUpperCase();
+      var suggestions: any[] = [];
+      mysqlLanguage.keywords.forEach(item => {
+        if (item.indexOf(match) !== -1) {
+          suggestions.push({
+            label: item,
+            kind: monaco.languages.CompletionItemKind.Keyword,
+            insertText: item
+          });
+        }
+      });
+      mysqlLanguage.operators.forEach(item => {
+        if (item.indexOf(match) !== -1) {
+          suggestions.push({
+            label: item,
+            kind: monaco.languages.CompletionItemKind.Operator,
+            insertText: item
+          });
+        }
+      });
+      mysqlLanguage.builtinFunctions.forEach(item => {
+        if (item.indexOf(match) !== -1) {
+          suggestions.push({
+            label: item,
+            kind: monaco.languages.CompletionItemKind.Function,
+            insertText: item
+          });
+        }
+      });
+      suggestion.forEach(item => {
+        suggestions.push({
+          label: item.label,
+          kind: monaco.languages.CompletionItemKind.Function,
+          insertText: item.insertText,
+        });
+      });
+      return {
+        suggestions
+      };
+    },
+    triggerCharacters: [':'],
+    });
+  }
+
+  onChange(newValue: string) {
+    try {
+      const ast = parser.astify(newValue);
+      console.log(ast);
+    }catch (e) {
+      console.error(e);
+    }
+  }
+
 
   render() {
+    const { language, theme, height, width } = this.props;
+    console.log(height, width);
+    const options = {
+      selectOnLineNumbers: true,
+      lineHeight: 21,
+      minimap: { enabled: false },
+    };
+    options['lineNumbers'] = 'off';
+    options['wordWrap'] = 'on';
     return (
       <div className="layout-content editor">
         <div className="editor-content" >
-          <div
-            ref={e => this.ref = e}
-            className={"high-content"}
-            id="high-content"
-            tabIndex={0}
-            contentEditable={true}
-          />
+          <MonacoEditor
+            width={width}
+            height={height - 38}
+            language={language}
+            theme={theme === 'Light' ? 'vs' : 'vs-dark'}
+            value={content}
+            options={options}
+            onChange={this.onChange}
+            editorDidMount={this.editorDidMount}
+            />
         </div>
       </div>
     );
   }
 }
 
-export default Editor;
+export default EditSql;
