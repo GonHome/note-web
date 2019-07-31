@@ -10,7 +10,6 @@ type propTypes = {
   leftWidth: number,
   middleWidth: number,
   theme: string;
-  language: string;
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;

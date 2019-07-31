@@ -10,7 +10,6 @@ const initialState = {
   isEye: false,
   checkMenu: 'ALL',
   checkNotes: [],
-  language: 'markdown',
   notes: [],
   search: '',
   leftLoading: false,

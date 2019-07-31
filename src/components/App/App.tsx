@@ -14,11 +14,10 @@ type propTypes = {
   middleWidth: number;
   sort: sortObj;
   moveWidth: (leftWidth: number, middleWidth: number) => void;
-  initNotes: (params: searchObj, checkNote: string | undefined) => void;
+  initNotes: (params: searchObj, checkNote: string[] | undefined) => void;
   changeSort: (sort: sortObj) => void;
   theme: string;
   checkMenu: string;
-  language: string;
   search: string;
   checkNotes: string[];
   notes: any[];
@@ -35,6 +34,8 @@ type propTypes = {
   changeSearch: (search: string) => void;
   addNotes: () => void;
   changeContent: (content: string) => void;
+  favoriteNotes: (isFavourite: boolean) => void;
+  pinNotes: (isPin: boolean) => void;
 };
 type stateTypes = {
   isOpen: boolean;
@@ -59,7 +60,7 @@ class App extends React.Component<propTypes, stateTypes> {
   searchNotes = () => {
     const { initNotes, search, sort, checkNotes } = this.props;
     const { sortName, sortOrder } = sort;
-    initNotes({ search, sortName, sortOrder }, checkNotes.length > 2 ? undefined : checkNotes[0]);
+    initNotes({ search, sortName, sortOrder }, checkNotes);
   };
 
   mouseDownMoveMiddle = (e: any) => {
@@ -149,7 +150,6 @@ class App extends React.Component<propTypes, stateTypes> {
       changeCheckMenu,
       checkNotes,
       changeCheckNotes,
-      language,
       changeLanguage,
       notes,
       changeSearch,
@@ -159,6 +159,8 @@ class App extends React.Component<propTypes, stateTypes> {
       middleLoading,
       mainLoading,
       changeContent,
+      favoriteNotes,
+      pinNotes,
     } = this.props;
     const { isOpen } = this.state;
     return (
@@ -179,7 +181,7 @@ class App extends React.Component<propTypes, stateTypes> {
           />
           <Sidebar { ...{ height, leftWidth, checkMenu, changeCheckMenu, leftLoading, notes }} />
           <Middlebar { ...{ height, middleWidth, sort, changeSort, checkNotes, changeCheckNotes, notes, changeSearch, search, addNotes, middleLoading }} searchNotes={this.searchNotes} />
-          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, language, changeLanguage, mainLoading, notes, changeContent }}/>
+          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeLanguage, mainLoading, notes, changeContent, favoriteNotes, pinNotes }}/>
         </div>
       </div>
     );

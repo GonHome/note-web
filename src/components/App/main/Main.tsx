@@ -13,7 +13,6 @@ type propTypes = {
   leftWidth: number,
   middleWidth: number,
   theme: string;
-  language: string;
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;
@@ -23,11 +22,13 @@ type propTypes = {
   mainLoading: boolean;
   notes: any;
   changeContent: (content: string) => void;
+  favoriteNotes: (isFavourite: boolean) => void;
+  pinNotes: (isPin: boolean) => void;
 };
 class Main extends React.Component<propTypes> {
 
   render() {
-    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeContent, changeLanguage, notes } = this.props;
+    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeContent, changeLanguage, notes, favoriteNotes, pinNotes } = this.props;
     let checkNote: any = null;
     if (notes.length > 0 && checkNotes.length === 1) {
       checkNote = notes.filter((item: any) => {
@@ -38,12 +39,16 @@ class Main extends React.Component<propTypes> {
       <div
         className={classNames("mainbar layout column", { multi: checkNotes.length > 1 } )}
         style={{ height, width: width - leftWidth - middleWidth }}>
-        { checkNotes.length > 1 ? <MultiEditor checkNotes={checkNotes}/> :
+        { checkNotes.length > 1 ? <MultiEditor checkNotes={checkNotes} favoriteNotes={favoriteNotes} pinNotes={pinNotes}/> :
           <div style={{ height: '100%' }}>
             <MainHeadBar isEdit={ isEdit } changeIsEdit={ changeIsEdit } isEye={ isEye }
                changeIsEyeWidth={ changeIsEyeWidth }
                language={checkNote ? checkNote.language : ''}
+               isFavourite={checkNote ? checkNote.isFavourite : false}
+               isPin={checkNote ? checkNote.isPin : false}
                changeLanguage={changeLanguage}
+               favoriteNotes={favoriteNotes}
+               pinNotes={pinNotes}
             />
             {
               isEye

@@ -11,7 +11,6 @@ import {
   getIsEye,
   getCheckMenu,
   getCheckNotes,
-  getLanguage,
   getNotes,
   getSearch,
   getLeftLoading,
@@ -30,6 +29,8 @@ import {
   changeSearch,
   addNotes,
   changeContent,
+  favoriteNotes,
+  pinNotes,
 } from '../actions/AppActions';
 import { sortObj, eyeWidthObj, searchObj } from '../models/models';
 type propTypes = {
@@ -41,10 +42,9 @@ type propTypes = {
   checkMenu: string;
   checkNotes: string[];
   moveWidth: (leftWidth: number, middleWidth: number) => void;
-  initNotes: (params: searchObj, checkNote: string | undefined) => void;
+  initNotes: (params: searchObj, checkNote: string[] | undefined) => void;
   changeSort: (sort: sortObj) => void;
   theme: string;
-  language: string;
   search: string;
   notes: any[];
   isEdit: boolean;
@@ -60,6 +60,8 @@ type propTypes = {
   changeSearch: (search: string) => void;
   addNotes: () => void;
   changeContent: (content: string) => void;
+  favoriteNotes: (isFavourite: boolean) => void;
+  pinNotes: (isPin: boolean) => void;
 };
 
 const AppContainer = (props: propTypes) => <App {...props} />;
@@ -75,7 +77,6 @@ const mapStateToProps = (state: stateTypes) => ({
   isEye: getIsEye(state),
   checkMenu: getCheckMenu(state),
   checkNotes: getCheckNotes(state),
-  language: getLanguage(state),
   notes: getNotes(state),
   search: getSearch(state),
   leftLoading: getLeftLoading(state),
@@ -97,5 +98,7 @@ export default connect(
     changeSearch,
     addNotes,
     changeContent,
+    favoriteNotes,
+    pinNotes,
   },
 )(AppContainer);

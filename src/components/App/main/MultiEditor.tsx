@@ -3,6 +3,8 @@ import { ButtonGroup, Button, Icon, InputGroup } from '@blueprintjs/core';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 type propTypes = {
   checkNotes: string[];
+  favoriteNotes: (isFavourite: boolean) => void;
+  pinNotes: (isPin: boolean) => void;
 };
 class MultiEditor extends React.Component<propTypes> {
   addTagButton = (
@@ -22,7 +24,7 @@ class MultiEditor extends React.Component<propTypes> {
     />
   );
   render() {
-    const { checkNotes } = this.props;
+    const { checkNotes, favoriteNotes, pinNotes } = this.props;
     return (
       <div className="multi-editor">
         <h1>{checkNotes.length} notes selected</h1>
@@ -31,14 +33,14 @@ class MultiEditor extends React.Component<propTypes> {
             <Row>
               <Col xs={6} md={6}>
                 <ButtonGroup className="button-group">
-                  <Button className="button-50 button" icon={<Icon icon="star-empty" iconSize={24} />} title="取消关注" large />
-                  <Button className="button-50 button" icon={<Icon icon="star" iconSize={24} />} title="关注" large />
+                  <Button className="button-50 button" icon={<Icon icon="star-empty" iconSize={24} />} title="取消关注" large onClick={() => favoriteNotes(false)} />
+                  <Button className="button-50 button" icon={<Icon icon="star" iconSize={24} />} title="关注" large onClick={() => favoriteNotes(true)}/>
                 </ButtonGroup>
               </Col>
               <Col xs={6} md={6}>
                 <ButtonGroup className="button-group">
-                  <Button className="button-50 button" icon={<Icon icon="unpin" iconSize={24} />}title="取消置顶" large />
-                  <Button className="button-50 button" icon={<Icon icon="pin" iconSize={24} />} title="置顶" large />
+                  <Button className="button-50 button" icon={<Icon icon="unpin" iconSize={24} />}title="取消置顶" large onClick={() => pinNotes(false)} />
+                  <Button className="button-50 button" icon={<Icon icon="pin" iconSize={24} />} title="置顶" large onClick={() => pinNotes(true)}/>
                 </ButtonGroup>
               </Col>
             </Row>

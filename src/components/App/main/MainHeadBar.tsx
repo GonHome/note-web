@@ -13,6 +13,10 @@ type propTypes = {
   language: string;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   changeLanguage: (language: string) => void;
+  favoriteNotes: (isFavourite: boolean) => void;
+  isFavourite: boolean;
+  pinNotes: (isPin: boolean) => void;
+  isPin: boolean;
 };
 class MainHeadBar extends React.Component<propTypes> {
 
@@ -31,7 +35,7 @@ class MainHeadBar extends React.Component<propTypes> {
   };
 
   render() {
-    const { isEdit, isEye, language, changeLanguage } = this.props;
+    const { isEdit, isEye, language, changeLanguage, isFavourite, favoriteNotes, isPin, pinNotes } = this.props;
     return (
       <div className="layout-header toolbar main-header">
         <ButtonGroup>
@@ -46,8 +50,8 @@ class MainHeadBar extends React.Component<propTypes> {
           <Button icon="link" small title="附件" />
         </ButtonGroup>
         <ButtonGroup>
-          <Button icon="star-empty" small title="关注" />
-          <Button icon="pin" small title="置顶" />
+          <Button icon="star-empty" small title="关注" active={isFavourite} onClick={ () => favoriteNotes(!isFavourite)} />
+          <Button icon="pin" small title="置顶" active={isPin} onClick={ () => pinNotes(!isPin)} />
         </ButtonGroup>
         <ButtonGroup>
           <Button icon="git-push" small title="保存" />

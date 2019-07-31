@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { InputGroup, Button, Popover, Position, ContextMenu, Menu, MenuItem, Spinner } from '@blueprintjs/core';
+import { InputGroup, Button, Popover, Position, ContextMenu, Menu, MenuItem, Spinner, Icon } from '@blueprintjs/core';
 import * as _ from 'lodash';
 import * as classNames from 'classnames';
 import SortMenu from './SortMenu';
@@ -169,7 +169,11 @@ class Middlebar extends React.Component<propTypes> {
               onClick={() => this.check(note.id)}
               onContextMenu={(e) => this.showContextMenu(e, note)}
             >
-              {note.name}
+              <span title={note.name} className="note-name">{note.name}</span>
+              <span className="icon-item">
+                {note.isFavourite ? <Icon icon="star" title="已关注" iconSize={14}/> : null}
+                {note.isPin ? <Icon icon="pin" title="已置顶" iconSize={14}/> : null}
+              </span>
             </div>
           })}
         </div>

@@ -10,6 +10,21 @@ export const doError = (error: any) => {
     message: `${error.code} ${error.message}`,
   });
 };
+export const doErrMessage = (message: string) => {
+  TOASTER.show({
+    message,
+    icon: 'warning-sign',
+    intent: Intent.DANGER,
+  });
+};
+
+export const doSucMessage = (message: string) => {
+  TOASTER.show({
+    message,
+    icon: 'tick',
+    intent: Intent.SUCCESS,
+  });
+};
 
 export const checkError=({error,response})=>{
   //判断是否有异常
