@@ -1,10 +1,11 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { sideBarObj } from '../../../models/models';
 type propTypes = {
-  sideBar: sideBarObj;
-  index: number;
+  code: string;
+  text: string;
+  icon?: string;
   checkMenu: string;
+  count: number;
   changeCheckMenu: (checkMenu: string) => void;
 };
 type stateTypes = {
@@ -13,16 +14,15 @@ type stateTypes = {
 class Sidetag extends React.Component<propTypes, stateTypes> {
 
   render() {
-    const { sideBar, checkMenu, changeCheckMenu } = this.props;
-    const { icon } = sideBar;
+    const { code, text, icon, count, checkMenu, changeCheckMenu } = this.props;
     return (
       <div
-        className={classNames("tag list-item button", icon ? 'level-0' : 'level-1', { active: sideBar.code === checkMenu })}
-        onClick={() => changeCheckMenu(sideBar.code)}
+        className={classNames("tag list-item button", icon ? 'level-0' : 'level-1', { active: code === checkMenu })}
+        onClick={() => changeCheckMenu(code)}
       >
-        <i className="icon xsmall" style={{ backgroundImage: `url(/font_icons/${sideBar.icon}.svg)` }} />
-        <span className="title small" >{sideBar.text}</span>
-        <span className="counter xxsmall">{sideBar.count}</span>
+        <i className="icon xsmall" style={{ backgroundImage: `url(/font_icons/${icon}.svg)` }} />
+        <span className="title small" >{text}</span>
+        <span className="counter xxsmall">{count}</span>
       </div>
     );
   }

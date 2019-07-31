@@ -108,15 +108,24 @@ class Middlebar extends React.Component<propTypes> {
     document.body.addEventListener('keyup', this.keyUpEvent);
   };
 
-  blurSearch = (e: React.FormEvent<HTMLInputElement>) => {
-    const { changeSearch } = this.props;
+  blurSearch = () => {
     document.body.removeEventListener('keyup', this.keyUpEvent);
+  };
+
+  changeSearch = (e: React.FormEvent<HTMLInputElement>) => {
+    const { changeSearch } = this.props;
     changeSearch(e.currentTarget.value)
   };
 
-  keyUpEvent = () => {
+  keyUpEvent = (e: any) => {
     const { searchNotes } = this.props;
-    searchNotes();
+    if (window.event) {
+      e = window.event;
+    }
+    const code = e.keyCode;
+    if (code === 13) {
+      searchNotes();
+    }
   };
 
   render() {
@@ -132,7 +141,8 @@ class Middlebar extends React.Component<propTypes> {
                 rightElement={this.searchButton()}
                 small
                 type="text"
-                onBlur={e => this.blurSearch(e)}
+                onBlur={this.blurSearch}
+                onChange={this.changeSearch}
                 onFocus={this.focusSearch}
               />
             </div>

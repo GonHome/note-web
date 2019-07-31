@@ -175,7 +175,7 @@ class App extends React.Component<propTypes, stateTypes> {
             onMouseDown={this.mouseDownMoveSide}
             onMouseUp={this.mouseUpMoveSide}
           />
-          <Sidebar { ...{ height, leftWidth, checkMenu, changeCheckMenu, leftLoading }} />
+          <Sidebar { ...{ height, leftWidth, checkMenu, changeCheckMenu, leftLoading, notes }} />
           <Middlebar { ...{ height, middleWidth, sort, changeSort, checkNotes, changeCheckNotes, notes, changeSearch, search, addNotes, middleLoading }} searchNotes={this.searchNotes} />
           <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, language, changeLanguage, mainLoading }}/>
         </div>

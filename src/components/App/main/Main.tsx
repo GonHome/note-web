@@ -41,7 +41,7 @@ class Main extends React.Component<propTypes> {
                 :
                 (
                   isEdit ?
-                    <EditSql
+                    <Editor
                       height={ height }
                       width={ width - leftWidth - middleWidth }
                       theme={ theme }

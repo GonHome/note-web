@@ -66,7 +66,6 @@ export type sideBarListObj = sideBarObj[];
 export type sideBarObj = {
   text: string,
   code: string,
-  count: number,
   icon?: string,
 };
 
