@@ -21,11 +21,19 @@ type propTypes = {
   changeLanguage: (language: string) => void;
   checkNotes: string[];
   mainLoading: boolean;
+  notes: any;
+  changeContent: (content: string) => void;
 };
 class Main extends React.Component<propTypes> {
 
   render() {
-    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, language, changeLanguage } = this.props;
+    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeContent, changeLanguage, notes } = this.props;
+    let checkNote: any = null;
+    if (notes.length > 0 && checkNotes.length === 1) {
+      checkNote = notes.filter((item: any) => {
+        return item.id === checkNotes[0]
+      })[0];
+    }
     return (
       <div
         className={classNames("mainbar layout column", { multi: checkNotes.length > 1 } )}
@@ -33,11 +41,14 @@ class Main extends React.Component<propTypes> {
         { checkNotes.length > 1 ? <MultiEditor checkNotes={checkNotes}/> :
           <div style={{ height: '100%' }}>
             <MainHeadBar isEdit={ isEdit } changeIsEdit={ changeIsEdit } isEye={ isEye }
-                         changeIsEyeWidth={ changeIsEyeWidth } language={language} changeLanguage={changeLanguage} />
+               changeIsEyeWidth={ changeIsEyeWidth }
+               language={checkNote ? checkNote.language : ''}
+               changeLanguage={changeLanguage}
+            />
             {
               isEye
                 ?
-                <EyeEditor { ...this.props } />
+                <EyeEditor { ...this.props } checkNote={checkNote} changeContent={changeContent} />
                 :
                 (
                   isEdit ?
@@ -46,10 +57,11 @@ class Main extends React.Component<propTypes> {
                       width={ width - leftWidth - middleWidth }
                       theme={ theme }
                       isEdit={ isEdit }
-                      language={language}
+                      checkNote={checkNote}
+                      changeContent={changeContent}
                     />
                     :
-                    <Content height={ height }/>
+                    <Content height={ height } content={checkNote ? checkNote.content : ''}/>
                 )
             }
           </div>

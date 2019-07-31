@@ -29,6 +29,7 @@ import {
   initNotes,
   changeSearch,
   addNotes,
+  changeContent,
 } from '../actions/AppActions';
 import { sortObj, eyeWidthObj, searchObj } from '../models/models';
 type propTypes = {
@@ -58,6 +59,7 @@ type propTypes = {
   changeLanguage: (language: string) => void;
   changeSearch: (search: string) => void;
   addNotes: () => void;
+  changeContent: (content: string) => void;
 };
 
 const AppContainer = (props: propTypes) => <App {...props} />;
@@ -94,5 +96,6 @@ export default connect(
     initNotes,
     changeSearch,
     addNotes,
+    changeContent,
   },
 )(AppContainer);

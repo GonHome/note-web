@@ -1,8 +1,9 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
+import * as _ from 'lodash';
 import * as ActionTypes from '../constants/ActionTypes';
 import { sortObj, eyeWidthObj, searchObj } from '../models/models';
 import { api, checkError, doError } from '../util/api';
-import { getCheckNotes, getSearch, getSort } from '../selectors/AppSelectors';
+import { getCheckNotes, getSearch, getSort, getNotes } from '../selectors/AppSelectors';
 
 export const moveWidth = (leftWidth: number, middleWidth: number) => (dispatch) => {
   dispatch({ type: ActionTypes.MOVE_WIDTH_BAR, leftWidth, middleWidth });
@@ -11,6 +12,7 @@ export const moveWidth = (leftWidth: number, middleWidth: number) => (dispatch) 
 export const initNotes =(params: searchObj, checkNote: string | undefined) => async (dispatch) => {
   const { search, sortName, sortOrder } = params;
   dispatch(showLoading());
+  dispatch(changeMiddleLoading(true));
   api.newRequest().jsonHal().from(`/api/note/search?sortName=${sortName}&&sortOrder=${sortOrder}${search ? `&&search=${search}` : ''}`)
     .getResource((err,response)=>{
       const error = checkError({response, error: err});
@@ -26,9 +28,28 @@ export const initNotes =(params: searchObj, checkNote: string | undefined) => as
           checkNoteIds = [notes[0].id]
         }
         dispatch({ type: ActionTypes.INIT_NOTES, notes, checkNotes: checkNoteIds });
+        dispatch(changeMiddleLoading(false));
         dispatch(hideLoading());
       }
     });
+};
+
+export const changeMiddleLoading = (middleLoading: boolean) => (dispatch) => {
+  dispatch({ type: ActionTypes.CHANGE_MIDDLE_LOADING, middleLoading });
+};
+
+export const changeContent = (content: string) => (dispatch, getState) => {
+  const notes = _.cloneDeep(getNotes(getState()));
+  const checkNotes = getCheckNotes(getState());
+  if (notes.length > 0 && checkNotes.length === 1) {
+    notes.forEach((item: any) => {
+      if(item.id === checkNotes[0]) {
+        item.content = content;
+        dispatch({ type: ActionTypes.CHANGE_NOTES, notes });
+      }
+    });
+
+  }
 };
 
 export const addNotes = () => async (dispatch, getState) => {

@@ -16,6 +16,8 @@ export const CHANGE_CHECK_NOTES = 'CHANGE_CHECK_NOTES';
 export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
 export const INIT_NOTES = 'INIT_NOTES';
 export const CHANGE_SEARCH = 'CHANGE_SEARCH';
+export const CHANGE_MIDDLE_LOADING = 'CHANGE_MIDDLE_LOADING';
+export const CHANGE_NOTES = 'CHANGE_NOTES';
 // session
 export const CHECK_LOGIN = 'CHECK_LOGIN';
 

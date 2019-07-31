@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as _ from 'lodash';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
+import MonacoEditor from 'react-monaco-editor';
 import 'monaco-editor/esm/vs/editor/contrib/dnd/dnd.js';
 import 'monaco-editor/esm/vs/editor/contrib/linesOperations/linesOperations.js';
 import 'monaco-editor/esm/vs/editor/contrib/multicursor/multicursor.js';
@@ -58,91 +57,53 @@ import 'monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution.
 import 'monaco-editor/esm/vs/basic-languages/vb/vb.contribution.js';
 import 'monaco-editor/esm/vs/basic-languages/xml/xml.contribution.js';
 import 'monaco-editor/esm/vs/basic-languages/yaml/yaml.contribution.js';
-import { MonacoEditor } from '../../../models/models';
+import 'monaco-editor/esm/vs/editor/contrib/suggest/suggestController.js';
+import 'monaco-editor/esm/vs/editor/contrib/bracketMatching/bracketMatching.js';
+import 'monaco-editor/esm/vs/editor/contrib/hover/hover.js';
+import 'monaco-editor/esm/vs/editor/contrib/find/findController.js';
 
 type propTypes = {
   height: number;
   width: number;
   theme: string;
   isEdit: boolean;
-  language:string;
+  checkNote: any;
+  changeContent: (content: string) => void;
 };
-type stateTypes = {
-  content: string;
-  theme: string;
-  language: string;
-}
-const content = "\n" +
-  "# 02 - The Sidebar\n" +
-  "\n" +
-  "The sidebar is where all your notes are categorized.\n" +
-  "\n" +
-  "## Categories\n" +
-  "\n" +
-  "- **All Notes**: This section contains all notes.\n" +
-  "- **Favorites**: This section contains all notes you've favorited.\n" +
-  "- **Notebooks**: This section contains all notes tagged with the special `Notebooks/*` tag.\n" +
-  "- **Tags**: This section contains all notes tagged with any tag except the special ones: `Notebooks/*` and `Templates/*`.\n" +
-  "- **Templates**: This section contains all notes tagged with the special `Templates/*` tag. These notes won't be displayed in any other category.\n" +
-  "- **Untagged**: This section contains all notes that have no tags.\n" +
-  "- **Trash**: This section contains all notes that have been deleted. These notes won't be displayed in any other category.\n" +
-  "\n" +
-  "You can create sub-categories in the following sections: Notebooks, Tags and Templates by using nested tags.\n";
-class Editor extends React.Component<propTypes, stateTypes> {
-  private ref;
-  private editor;
-  constructor(props: propTypes) {
-    super(props);
-    this.state = {
-      content: _.cloneDeep(content),
-      theme: 'Light',
-      language: 'markdown',
-    }
-  }
+class Editor extends React.Component<propTypes> {
 
-  componentDidMount(): void {
-    this.initMonaco (this.props);
-  }
-
-  componentWillReceiveProps(nextProps: Readonly<propTypes>, nextContext: any): void {
-    if (nextProps.theme !== this.state.theme || nextProps.language !== this.state.language ) {
-      if (this.editor) {
-        this.ref.removeChild(this.ref.firstChild);
-        this.initMonaco(nextProps);
-      }
-      this.setState({ theme: nextProps.theme, language: nextProps.language });
-    }
-  }
-
-  initMonaco = (props: propTypes) => {
-    const { theme, language } = props;
-    this.editor = monaco.editor.create ( this.ref,
-      {
-        lineNumbers: 'off',
-        language: language,
-        value: content,
-        lineHeight: 21,
-        theme: theme === 'Light' ? 'vs' : 'vs-dark',
-        minimap: { enabled: false },
-        wordWrap: 'on',
-      }) as unknown as MonacoEditor; //TSC //UGLY
-    this.editor.onDidChangeModelContent( event => {
-      const value = this.editor.getValue ();
-      this.setState({ content: value });
-    })
+  onChange = (newValue: string) => {
+    const { changeContent } = this.props;
+    changeContent(newValue);
   };
 
   render() {
+    const { checkNote, theme, height, width, changeContent } = this.props;
+    console.log(changeContent);
+    const options = {
+      selectOnLineNumbers: true,
+      lineHeight: 21,
+      minimap: { enabled: false },
+    };
+    options['lineNumbers'] = 'off';
+    options['wordWrap'] = 'on';
     return (
       <div className="layout-content editor">
         <div className="editor-content" >
-          <div
-            ref={e => this.ref = e}
-            className={"high-content"}
-            id="high-content"
-            tabIndex={0}
-            contentEditable={true}
-          />
+          {checkNote
+            ?
+            <MonacoEditor
+              width={width}
+              height={height - 38}
+              language={checkNote.language}
+              theme={theme === 'Light' ? 'vs' : 'vs-dark'}
+              value={checkNote.content}
+              options={options}
+              onChange={this.onChange}
+            />
+            :
+            null
+          }
         </div>
       </div>
     );

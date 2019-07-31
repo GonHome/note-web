@@ -40,6 +40,10 @@ const app = (state = initialState, action: any) => {
       return { ...state, notes: action.notes, checkNotes: action.checkNotes };
     case ActionTypes.CHANGE_SEARCH:
       return { ...state, search: action.search };
+    case ActionTypes.CHANGE_MIDDLE_LOADING:
+      return { ...state, middleLoading: action.middleLoading };
+    case ActionTypes.CHANGE_NOTES:
+      return { ...state, notes: action.notes };
     default:
       return state;
   }

@@ -14,17 +14,19 @@ type propTypes = {
   isEdit: boolean;
   changeIsEdit: (isEdit: boolean) => void;
   isEye: boolean;
+  checkNote: any;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
+  changeContent: (content: string) => void;
 };
 class EyeEditor extends React.Component<propTypes> {
 
   render() {
-    const { height, leftWidth, middleWidth, width, theme, isEdit, language } = this.props;
+    const { height, leftWidth, middleWidth, width, theme, isEdit, checkNote, changeContent } = this.props;
     return (
       <Grid fluid style={{ width : width - leftWidth - middleWidth }}>
         <Row>
           <Col xs={6} md={6}>
-            <Content height={height}/>
+            <Content height={height} content={checkNote ? checkNote.content : ''}/>
           </Col>
           <Col xs={6} md={6}>
             <Editor
@@ -32,7 +34,8 @@ class EyeEditor extends React.Component<propTypes> {
               width={(width - leftWidth - middleWidth) / 2}
               theme={theme}
               isEdit={isEdit}
-              language={language}
+              checkNote={checkNote}
+              changeContent={changeContent}
             />
           </Col>
         </Row>
