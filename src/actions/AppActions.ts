@@ -42,14 +42,15 @@ export const changeMiddleLoading = (middleLoading: boolean) => (dispatch) => {
 export const changeContent = (content: string) => (dispatch, getState) => {
   const notes = _.cloneDeep(getNotes(getState()));
   const checkNotes = getCheckNotes(getState());
+  const name = content.split('\n')[0].replace('#', '');
   if (notes.length > 0 && checkNotes.length === 1) {
     notes.forEach((item: any) => {
       if(item.id === checkNotes[0]) {
         item.content = content;
+        item.name = name;
         dispatch({ type: ActionTypes.CHANGE_NOTES, notes });
       }
     });
-
   }
 };
 
@@ -124,6 +125,32 @@ export const changeLanguage = (language: string) => (dispatch, getState) => {
           dispatch(hideLoading());
         }
       });
+  }
+};
+
+export const saveNotes = () => (dispatch, getState) => {
+  const checkNotes = getCheckNotes(getState());
+  const search = getSearch(getState());
+  const sort = getSort(getState());
+  const { sortName, sortOrder } = sort;
+  const ids = checkNotes.join(',');
+  const params: searchObj = { search, sortName, sortOrder };
+  if (checkNotes.length === 1) {
+    const notes = getNotes(getState());
+    const checkNote = notes.filter((item: any) => item.id === checkNotes[0]);
+    if (checkNote[0]) {
+      api.jsonHal().from('/api/note/update/').post({ ids,  ...checkNote[0] },
+        (err, response) => {
+          const error = checkError({response, error: err});
+          if (error) {
+            doError(error);
+          } else {
+            doSucMessage('保存成功');
+            dispatch(initNotes(params, checkNotes));
+            dispatch(hideLoading());
+          }
+        });
+    }
   }
 };
 

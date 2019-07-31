@@ -31,6 +31,7 @@ import {
   changeContent,
   favoriteNotes,
   pinNotes,
+  saveNotes,
 } from '../actions/AppActions';
 import { sortObj, eyeWidthObj, searchObj } from '../models/models';
 type propTypes = {
@@ -62,6 +63,7 @@ type propTypes = {
   changeContent: (content: string) => void;
   favoriteNotes: (isFavourite: boolean) => void;
   pinNotes: (isPin: boolean) => void;
+  saveNotes: () => void;
 };
 
 const AppContainer = (props: propTypes) => <App {...props} />;
@@ -100,5 +102,6 @@ export default connect(
     changeContent,
     favoriteNotes,
     pinNotes,
+    saveNotes,
   },
 )(AppContainer);

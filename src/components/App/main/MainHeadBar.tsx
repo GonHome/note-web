@@ -17,6 +17,7 @@ type propTypes = {
   isFavourite: boolean;
   pinNotes: (isPin: boolean) => void;
   isPin: boolean;
+  saveNotes: () => void;
 };
 class MainHeadBar extends React.Component<propTypes> {
 
@@ -35,7 +36,7 @@ class MainHeadBar extends React.Component<propTypes> {
   };
 
   render() {
-    const { isEdit, isEye, language, changeLanguage, isFavourite, favoriteNotes, isPin, pinNotes } = this.props;
+    const { isEdit, isEye, language, changeLanguage, isFavourite, favoriteNotes, isPin, pinNotes, saveNotes } = this.props;
     return (
       <div className="layout-header toolbar main-header">
         <ButtonGroup>
@@ -54,7 +55,7 @@ class MainHeadBar extends React.Component<propTypes> {
           <Button icon="pin" small title="置顶" active={isPin} onClick={ () => pinNotes(!isPin)} />
         </ButtonGroup>
         <ButtonGroup>
-          <Button icon="git-push" small title="保存" />
+          <Button icon="git-push" small title="保存" onClick={saveNotes}/>
           <Button icon="trash" small title="删除" />
         </ButtonGroup>
         <Popover

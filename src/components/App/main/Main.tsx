@@ -24,11 +24,12 @@ type propTypes = {
   changeContent: (content: string) => void;
   favoriteNotes: (isFavourite: boolean) => void;
   pinNotes: (isPin: boolean) => void;
+  saveNotes: () => void;
 };
 class Main extends React.Component<propTypes> {
 
   render() {
-    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeContent, changeLanguage, notes, favoriteNotes, pinNotes } = this.props;
+    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeContent, changeLanguage, notes, favoriteNotes, pinNotes, saveNotes } = this.props;
     let checkNote: any = null;
     if (notes.length > 0 && checkNotes.length === 1) {
       checkNote = notes.filter((item: any) => {
@@ -49,6 +50,7 @@ class Main extends React.Component<propTypes> {
                changeLanguage={changeLanguage}
                favoriteNotes={favoriteNotes}
                pinNotes={pinNotes}
+               saveNotes={saveNotes}
             />
             {
               isEye

@@ -36,6 +36,7 @@ type propTypes = {
   changeContent: (content: string) => void;
   favoriteNotes: (isFavourite: boolean) => void;
   pinNotes: (isPin: boolean) => void;
+  saveNotes: () => void;
 };
 type stateTypes = {
   isOpen: boolean;
@@ -161,6 +162,7 @@ class App extends React.Component<propTypes, stateTypes> {
       changeContent,
       favoriteNotes,
       pinNotes,
+      saveNotes,
     } = this.props;
     const { isOpen } = this.state;
     return (
@@ -181,7 +183,7 @@ class App extends React.Component<propTypes, stateTypes> {
           />
           <Sidebar { ...{ height, leftWidth, checkMenu, changeCheckMenu, leftLoading, notes }} />
           <Middlebar { ...{ height, middleWidth, sort, changeSort, checkNotes, changeCheckNotes, notes, changeSearch, search, addNotes, middleLoading }} searchNotes={this.searchNotes} />
-          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeLanguage, mainLoading, notes, changeContent, favoriteNotes, pinNotes }}/>
+          <Main { ...{ height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeLanguage, mainLoading, notes, changeContent, favoriteNotes, pinNotes, saveNotes }}/>
         </div>
       </div>
     );

@@ -79,7 +79,6 @@ class Editor extends React.Component<propTypes> {
 
   render() {
     const { checkNote, theme, height, width, changeContent } = this.props;
-    console.log(changeContent);
     const options = {
       selectOnLineNumbers: true,
       lineHeight: 21,

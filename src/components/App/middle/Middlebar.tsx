@@ -88,11 +88,13 @@ class Middlebar extends React.Component<propTypes> {
     }
   };
 
-  showContextMenu = (e: any, note: noteObj) => {
+  showContextMenu = (e: any, note: any) => {
+    console.log(note);
     const menu =
       <Menu>
-        <MenuItem text="关注" />
-        <MenuItem text="删除" />
+        <MenuItem text={note.isPin ? '取消置顶' : '置顶'} />
+        <MenuItem text={note.isFavourite ? '取消关注' : '关注'} />
+        <MenuItem text={note.isDelete ? '还原' : '删除'} />
         <MenuItem text="永久删除"/>
       </Menu>;
     if(e.button === 2) {
