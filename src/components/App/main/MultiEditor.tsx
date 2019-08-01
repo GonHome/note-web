@@ -3,8 +3,10 @@ import { ButtonGroup, Button, Icon, InputGroup } from '@blueprintjs/core';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 type propTypes = {
   checkNotes: string[];
-  favoriteNotes: (isFavourite: boolean) => void;
-  pinNotes: (isPin: boolean) => void;
+  favoriteNotes: (isFavourite: boolean, ids?: string) => void;
+  pinNotes: (isPin: boolean, ids?: string) => void;
+  deleteNotes: (isDelete: boolean, ids?: string) => void;
+  deleteForeverNotes: (ids?: string) => void;
 };
 class MultiEditor extends React.Component<propTypes> {
   addTagButton = (
@@ -24,7 +26,7 @@ class MultiEditor extends React.Component<propTypes> {
     />
   );
   render() {
-    const { checkNotes, favoriteNotes, pinNotes } = this.props;
+    const { checkNotes, favoriteNotes, pinNotes, deleteForeverNotes, deleteNotes } = this.props;
     return (
       <div className="multi-editor">
         <h1>{checkNotes.length} notes selected</h1>
@@ -47,9 +49,9 @@ class MultiEditor extends React.Component<propTypes> {
             <Row>
               <Col xs={9} md={9}>
                 <ButtonGroup className="button-group">
-                  <Button className="button-33 button" icon={<Icon icon="trash" iconSize={24} />} title="删除" large />
-                  <Button className="button-33 button" icon={<Icon icon="trash" iconSize={24} color="green"  />} title="恢复" large />
-                  <Button className="button-33 button" icon={<Icon icon="trash" iconSize={24} color="red" />} title="永久删除" large />
+                  <Button className="button-33 button" icon={<Icon icon="trash" iconSize={24} />} title="删除" large onClick={() => deleteNotes(true)} />
+                  <Button className="button-33 button" icon={<Icon icon="undo" iconSize={24} />} title="还原" large onClick={() => deleteNotes(false)} />
+                  <Button className="button-33 button" icon={<Icon icon="trash" iconSize={24} color="red" />} title="永久删除" large onClick={() => deleteForeverNotes()}/>
                 </ButtonGroup>
               </Col>
             </Row>

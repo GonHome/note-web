@@ -32,6 +32,8 @@ import {
   favoriteNotes,
   pinNotes,
   saveNotes,
+  deleteNotes,
+  deleteForeverNotes,
 } from '../actions/AppActions';
 import { sortObj, eyeWidthObj, searchObj } from '../models/models';
 type propTypes = {
@@ -61,9 +63,11 @@ type propTypes = {
   changeSearch: (search: string) => void;
   addNotes: () => void;
   changeContent: (content: string) => void;
-  favoriteNotes: (isFavourite: boolean) => void;
-  pinNotes: (isPin: boolean) => void;
+  favoriteNotes: (isFavourite: boolean, ids?: string) => void;
+  pinNotes: (isPin: boolean, ids?: string) => void;
   saveNotes: () => void;
+  deleteNotes: (isDelete: boolean, ids?: string) => void;
+  deleteForeverNotes: (ids?: string) => void;
 };
 
 const AppContainer = (props: propTypes) => <App {...props} />;
@@ -103,5 +107,7 @@ export default connect(
     favoriteNotes,
     pinNotes,
     saveNotes,
+    deleteNotes,
+    deleteForeverNotes,
   },
 )(AppContainer);

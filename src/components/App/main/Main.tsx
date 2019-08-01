@@ -23,13 +23,15 @@ type propTypes = {
   notes: any;
   changeContent: (content: string) => void;
   favoriteNotes: (isFavourite: boolean) => void;
-  pinNotes: (isPin: boolean) => void;
+  pinNotes: (isPin: boolean, ids?: string) => void;
   saveNotes: () => void;
+  deleteNotes: (isDelete: boolean, ids?: string) => void;
+  deleteForeverNotes: (ids?: string) => void;
 };
 class Main extends React.Component<propTypes> {
 
   render() {
-    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeContent, changeLanguage, notes, favoriteNotes, pinNotes, saveNotes } = this.props;
+    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeContent, changeLanguage, notes, favoriteNotes, pinNotes, saveNotes, deleteNotes, deleteForeverNotes } = this.props;
     let checkNote: any = null;
     if (notes.length > 0 && checkNotes.length === 1) {
       checkNote = notes.filter((item: any) => {
@@ -40,17 +42,27 @@ class Main extends React.Component<propTypes> {
       <div
         className={classNames("mainbar layout column", { multi: checkNotes.length > 1 } )}
         style={{ height, width: width - leftWidth - middleWidth }}>
-        { checkNotes.length > 1 ? <MultiEditor checkNotes={checkNotes} favoriteNotes={favoriteNotes} pinNotes={pinNotes}/> :
+        { checkNotes.length > 1 ?
+          <MultiEditor
+            checkNotes={checkNotes}
+            favoriteNotes={favoriteNotes}
+            pinNotes={pinNotes}
+            deleteNotes={deleteNotes}
+            deleteForeverNotes={deleteForeverNotes}
+          /> :
           <div style={{ height: '100%' }}>
             <MainHeadBar isEdit={ isEdit } changeIsEdit={ changeIsEdit } isEye={ isEye }
                changeIsEyeWidth={ changeIsEyeWidth }
                language={checkNote ? checkNote.language : ''}
                isFavourite={checkNote ? checkNote.isFavourite : false}
                isPin={checkNote ? checkNote.isPin : false}
+               isDelete={checkNote ? checkNote.isDelete : false}
                changeLanguage={changeLanguage}
                favoriteNotes={favoriteNotes}
                pinNotes={pinNotes}
                saveNotes={saveNotes}
+               deleteNotes={deleteNotes}
+               deleteForeverNotes={deleteForeverNotes}
             />
             {
               isEye

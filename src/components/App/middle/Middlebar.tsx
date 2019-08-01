@@ -19,6 +19,10 @@ type propTypes = {
   searchNotes: () => void;
   addNotes: () => void;
   middleLoading: boolean;
+  favoriteNotes: (isFavourite: boolean, ids?: string) => void;
+  pinNotes: (isPin: boolean, ids?: string) => void;
+  deleteNotes: (isDelete: boolean, ids?: string) => void;
+  deleteForeverNotes: (ids?: string) => void;
 };
 
 class Middlebar extends React.Component<propTypes> {
@@ -89,13 +93,13 @@ class Middlebar extends React.Component<propTypes> {
   };
 
   showContextMenu = (e: any, note: any) => {
-    console.log(note);
+    const { favoriteNotes, pinNotes, deleteForeverNotes, deleteNotes } = this.props;
     const menu =
       <Menu>
-        <MenuItem text={note.isPin ? '取消置顶' : '置顶'} />
-        <MenuItem text={note.isFavourite ? '取消关注' : '关注'} />
-        <MenuItem text={note.isDelete ? '还原' : '删除'} />
-        <MenuItem text="永久删除"/>
+        <MenuItem text={note.isPin ? '取消置顶' : '置顶'} onClick={() => pinNotes(!note.isPin, `${note.id}`)} />
+        <MenuItem text={note.isFavourite ? '取消关注' : '关注'} onClick={() => favoriteNotes(!note.isFavourite, `${note.id}`)} />
+        <MenuItem text={note.isDelete ? '还原' : '删除'} onClick={() => deleteNotes(!note.isDelete, `${note.id}`)}/>
+        <MenuItem text="永久删除" onClick={() => deleteForeverNotes(`${note.id}`)}/>
       </Menu>;
     if(e.button === 2) {
       ContextMenu.show(

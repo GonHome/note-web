@@ -54,12 +54,14 @@ export const changeContent = (content: string) => (dispatch, getState) => {
   }
 };
 
-export const favoriteNotes = (isFavourite: boolean) =>  async (dispatch, getState) => {
+export const favoriteNotes = (isFavourite: boolean, ids?: string) =>  async (dispatch, getState) => {
   const checkNotes = getCheckNotes(getState());
   const search = getSearch(getState());
   const sort = getSort(getState());
   const { sortName, sortOrder } = sort;
-  const ids = checkNotes.join(',');
+  if (!ids) {
+    ids = checkNotes.join(',');
+  }
   const params: searchObj = { search, sortName, sortOrder };
   if (ids) {
     api.jsonHal().from('/api/note/update/').post({ ids, isFavourite },
@@ -80,12 +82,14 @@ export const favoriteNotes = (isFavourite: boolean) =>  async (dispatch, getStat
   }
 };
 
-export const pinNotes = (isPin: boolean) =>  async (dispatch, getState) => {
+export const pinNotes = (isPin: boolean, ids?: string) =>  async (dispatch, getState) => {
   const checkNotes = getCheckNotes(getState());
   const search = getSearch(getState());
   const sort = getSort(getState());
   const { sortName, sortOrder } = sort;
-  const ids = checkNotes.join(',');
+  if (!ids) {
+    ids = checkNotes.join(',');
+  }
   const params: searchObj = { search, sortName, sortOrder };
   if (ids) {
     api.jsonHal().from('/api/note/update/').post({ ids, isPin },
@@ -153,6 +157,67 @@ export const saveNotes = () => (dispatch, getState) => {
     }
   }
 };
+
+export const deleteNotes = (isDelete: boolean, ids?: string) => async (dispatch, getState) => {
+  const checkNotes = getCheckNotes(getState());
+  const search = getSearch(getState());
+  const sort = getSort(getState());
+  const { sortName, sortOrder } = sort;
+  if (!ids) {
+    ids = checkNotes.join(',');
+  }
+  const params: searchObj = { search, sortName, sortOrder };
+  if (checkNotes.length > 0) {
+    const notes = getNotes(getState());
+    const checkNote = notes.filter((item: any) => item.id === checkNotes[0]);
+    if (checkNote[0]) {
+      api.jsonHal().from('/api/note/update/').post({ ids,  isDelete },
+        (err, response) => {
+          const error = checkError({response, error: err});
+          if (error) {
+            doError(error);
+          } else {
+            if (isDelete) {
+              doSucMessage('删除成功');
+            } else {
+              doSucMessage('还原成功');
+            }
+            dispatch(initNotes(params, checkNotes));
+            dispatch(hideLoading());
+          }
+        });
+    }
+  }
+};
+
+export const deleteForeverNotes = (ids?: string) => async (dispatch, getState) => {
+  const checkNotes = getCheckNotes(getState());
+  const search = getSearch(getState());
+  const sort = getSort(getState());
+  const { sortName, sortOrder } = sort;
+  if (!ids) {
+    ids = checkNotes.join(',');
+  }
+  const params: searchObj = { search, sortName, sortOrder };
+  if (checkNotes.length > 0) {
+    const notes = getNotes(getState());
+    const checkNote = notes.filter((item: any) => item.id === checkNotes[0]);
+    if (checkNote[0]) {
+      api.jsonHal().from('/api/note/delete/').post({ ids },
+        (err, response) => {
+          const error = checkError({response, error: err});
+          if (error) {
+            doError(error);
+          } else {
+            doSucMessage('永久删除成功');
+            dispatch(initNotes(params, checkNotes));
+            dispatch(hideLoading());
+          }
+        });
+    }
+  }
+};
+
 
 export const addNotes = () => async (dispatch, getState) => {
   dispatch(showLoading());

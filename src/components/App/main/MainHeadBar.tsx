@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, ButtonGroup, Popover, Position } from '@blueprintjs/core';
+import { Button, ButtonGroup, Popover, Position, Icon } from '@blueprintjs/core';
 import TagMenu from './TagMenu';
 import LanguageMenu from './LanguageMenu';
 import { eyeWidthObj } from '../../../models/models';
@@ -13,11 +13,14 @@ type propTypes = {
   language: string;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   changeLanguage: (language: string) => void;
-  favoriteNotes: (isFavourite: boolean) => void;
+  favoriteNotes: (isFavourite: boolean, ids?: string) => void;
   isFavourite: boolean;
   pinNotes: (isPin: boolean) => void;
   isPin: boolean;
   saveNotes: () => void;
+  isDelete: boolean;
+  deleteNotes: (isDelete: boolean, ids?: string) => void;
+  deleteForeverNotes: (ids?: string) => void;
 };
 class MainHeadBar extends React.Component<propTypes> {
 
@@ -36,7 +39,7 @@ class MainHeadBar extends React.Component<propTypes> {
   };
 
   render() {
-    const { isEdit, isEye, language, changeLanguage, isFavourite, favoriteNotes, isPin, pinNotes, saveNotes } = this.props;
+    const { isEdit, isEye, language, changeLanguage, isFavourite, favoriteNotes, isPin, pinNotes, saveNotes, isDelete, deleteNotes, deleteForeverNotes } = this.props;
     return (
       <div className="layout-header toolbar main-header">
         <ButtonGroup>
@@ -56,7 +59,9 @@ class MainHeadBar extends React.Component<propTypes> {
         </ButtonGroup>
         <ButtonGroup>
           <Button icon="git-push" small title="保存" onClick={saveNotes}/>
-          <Button icon="trash" small title="删除" />
+          {!isDelete ? <Button icon="trash" small title="删除" onClick={() => deleteNotes(true)}/> : null}
+          {isDelete ? <Button icon="undo" small title="还原" onClick={() => deleteNotes(false)}/> : null}
+          {isDelete ? <Button icon={<Icon icon="trash" color="red" />} small title="永久删除" onClick={() => deleteForeverNotes()} /> : null}
         </ButtonGroup>
         <Popover
           content={<LanguageMenu language={language} changeLanguage={changeLanguage}/>}
