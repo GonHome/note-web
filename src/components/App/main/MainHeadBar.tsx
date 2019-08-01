@@ -24,6 +24,27 @@ type propTypes = {
 };
 class MainHeadBar extends React.Component<propTypes> {
 
+  componentDidMount(): void {
+    document.body.addEventListener('keydown', this.keydownEvent)
+  }
+
+  componentWillUnmount(): void {
+    document.body.removeEventListener('keydown', this.keydownEvent);
+  }
+
+  keydownEvent = (e: any) => {
+    const { saveNotes } = this.props;
+    if (window.event) {
+      e = window.event;
+    }
+    const code = e.keyCode;
+    if (e.ctrlKey && code === 83) {
+      saveNotes();
+    }
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   changeEdit = () => {
     const { isEdit, changeIsEdit } = this.props;
     changeIsEdit(!isEdit);
