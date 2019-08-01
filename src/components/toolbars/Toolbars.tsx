@@ -17,17 +17,20 @@ type propTypes = {
   leftWidth: number;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   isEye: boolean;
+  clearNotes: () => void;
+  choseAll: () => void;
+  deleteNotes: (isDelete: boolean, ids?: string) => void;
 };
 class Toolbars extends React.Component<propTypes> {
 
   render() {
-    const { TOOLBAR_HEIGHT, theme, changeTheme, changeDialogType, moveWidth, middleWidth, leftWidth, changeIsEyeWidth, isEye } = this.props;
+    const { TOOLBAR_HEIGHT, theme, changeTheme, changeDialogType, moveWidth, middleWidth, leftWidth, changeIsEyeWidth, isEye, clearNotes, choseAll, deleteNotes } = this.props;
     return (
       <div className="toolbar" style={{ height: TOOLBAR_HEIGHT }}>
         <ButtonGroup>
           <SysToolbar theme={theme} changeTheme={changeTheme} changeDialogType={changeDialogType}/>
           <FileToolbar />
-          <EditToolbar />
+          <EditToolbar clearNotes={clearNotes} choseAll={choseAll} deleteNotes={deleteNotes} />
           <ViewToolbar moveWidth={moveWidth} middleWidth={middleWidth} leftWidth={leftWidth} changeIsEyeWidth={changeIsEyeWidth} isEye={isEye}/>
           <WindowToolbar />
           <HelpToolbar />

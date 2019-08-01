@@ -42,12 +42,15 @@ export const changeMiddleLoading = (middleLoading: boolean) => (dispatch) => {
 export const changeContent = (content: string) => (dispatch, getState) => {
   const notes = _.cloneDeep(getNotes(getState()));
   const checkNotes = getCheckNotes(getState());
-  const name = content.split('\n')[0].replace('#', '');
+  let name = content.split('\n').filter((item: string) => item && item !== '\r')[0];
+  if (name) {
+    name = name.replace('#', '');
+  }
   if (notes.length > 0 && checkNotes.length === 1) {
     notes.forEach((item: any) => {
       if(item.id === checkNotes[0]) {
         item.content = content;
-        item.name = name;
+        item.name = name ? name : '未命名';
         dispatch({ type: ActionTypes.CHANGE_NOTES, notes });
       }
     });
@@ -218,6 +221,31 @@ export const deleteForeverNotes = (ids?: string) => async (dispatch, getState) =
   }
 };
 
+export const clearNotes = () => async (dispatch, getState) => {
+  const checkNotes = getCheckNotes(getState());
+  const search = getSearch(getState());
+  const sort = getSort(getState());
+  const { sortName, sortOrder } = sort;
+  const params: searchObj = { search, sortName, sortOrder };
+  api.jsonHal().from('/api/note/clear/').post({},
+    (err, response) => {
+      const error = checkError({response, error: err});
+      if (error) {
+        doError(error);
+      } else {
+        doSucMessage('清空回收站成功');
+        dispatch(initNotes(params, checkNotes));
+        dispatch(hideLoading());
+      }
+    });
+};
+
+export const choseAll = () => (dispatch, getState) => {
+  const notes = getNotes(getState());
+  const checkNotes = notes.map((item: any) => item.id);
+  dispatch(changeCheckNotes(checkNotes));
+};
+
 
 export const addNotes = () => async (dispatch, getState) => {
   dispatch(showLoading());
@@ -231,7 +259,9 @@ export const addNotes = () => async (dispatch, getState) => {
       if (error) {
         doError(error);
       } else {
+        doSucMessage('添加成功');
         dispatch(initNotes(params, [response.id]));
+        dispatch(changeIsEdit(true));
         dispatch(hideLoading());
       }
     });

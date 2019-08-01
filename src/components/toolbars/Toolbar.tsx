@@ -13,6 +13,9 @@ type propTypes = {
   leftWidth?: number;
   changeIsEyeWidth?: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   isEye?: boolean;
+  clearNotes?: () => void;
+  choseAll?: () => void;
+  deleteNotes?: (isDelete: boolean, ids?: string) => void;
 };
 class Toolbar extends React.Component<propTypes> {
 

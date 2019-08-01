@@ -6,7 +6,7 @@ import Toolbars from '../components/toolbars/Toolbars';
 import { TOOLBAR_HEIGHT } from '../constants/CommonConstants';
 import { getTheme } from '../selectors/CommonSelectors';
 import { changeTheme } from '../actions/EnvironmentActions';
-import { changeDialogType, moveWidth, changeIsEyeWidth } from '../actions/AppActions';
+import { changeDialogType, moveWidth, changeIsEyeWidth, clearNotes, choseAll, deleteNotes } from '../actions/AppActions';
 import { getLeftWidth, getMiddleWidth, getIsEye } from '../selectors/AppSelectors';
 import { eyeWidthObj } from '../models/models';
 type propTypes = {
@@ -19,6 +19,9 @@ type propTypes = {
   leftWidth: number;
   changeIsEyeWidth: ({ leftWidth, middleWidth, isEye }: eyeWidthObj) => void;
   isEye: boolean;
+  clearNotes: () => void;
+  choseAll: () => void;
+  deleteNotes: (isDelete: boolean, ids?: string) => void;
 };
 
 const ToolbarContainer = (props: propTypes) => <Toolbars {...props} />;
@@ -37,6 +40,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
       changeDialogType,
       moveWidth,
       changeIsEyeWidth,
+      clearNotes,
+      choseAll,
+      deleteNotes,
     },
     dispatch
   );
