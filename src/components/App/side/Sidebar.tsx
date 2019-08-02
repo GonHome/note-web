@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { sideBarList } from '../../../constants/AppConstants';
-import { sideBarObj } from '../../../models/models';
+import { KVObj } from '../../../models/models';
 import Sidetag from './Sidetag';
 type propTypes = {
   height: number;
@@ -19,6 +18,31 @@ class Sidebar extends React.Component<propTypes> {
   tagCount = (notes: any) => notes.filter((item: any) => item.tags.length > 0).length;
 
   trashCount = (notes: any) => notes.filter((item: any) => item.isDelete).length;
+
+  tags = (notes: any) => {
+    const { changeCheckMenu, checkMenu } = this.props;
+    const tagNotes = notes.filter((item: any) => item.tags.length > 0);
+    const tagList = tagNotes.map((item: any) => item.tags);
+    const tags: KVObj = {};
+    const docu: JSX.Element[] = [];
+    tagList.forEach((tag: any[]) => {
+      tag.forEach((item: any) => {
+        tags[item.name] = tags[item.name] ? tags[item.name] + 1 : 1;
+      });
+    });
+    for(let i in tags) {
+      docu.push(
+        <Sidetag
+          code={i}
+          text={i}
+          count={tags[i]}
+          checkMenu={checkMenu}
+          changeCheckMenu={changeCheckMenu}
+        />
+      )
+    }
+    return docu;
+  };
 
   render() {
     const { leftWidth, height, notes, changeCheckMenu, checkMenu } = this.props;
@@ -57,6 +81,7 @@ class Sidebar extends React.Component<propTypes> {
             checkMenu={checkMenu}
             changeCheckMenu={changeCheckMenu}
           />
+          {this.tags(notes)}
           <Sidetag
             code="TRASH"
             icon="delete"

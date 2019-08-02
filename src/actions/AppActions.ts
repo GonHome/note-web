@@ -193,6 +193,58 @@ export const deleteNotes = (isDelete: boolean, ids?: string) => async (dispatch,
   }
 };
 
+export const addTag = (tagName: string) => async (dispatch, getState) => {
+  const checkNotes = getCheckNotes(getState());
+  const search = getSearch(getState());
+  const sort = getSort(getState());
+  const { sortName, sortOrder } = sort;
+  const ids = checkNotes.join(',');
+  const params: searchObj = { search, sortName, sortOrder };
+  if (checkNotes.length > 0) {
+    const notes = getNotes(getState());
+    const checkNote = notes.filter((item: any) => item.id === checkNotes[0]);
+    if (checkNote[0]) {
+      api.jsonHal().from('/api/note/addTag/').post({ ids, tagName },
+        (err, response) => {
+          const error = checkError({response, error: err});
+          if (error) {
+            doError(error);
+          } else {
+            doSucMessage('添加标签成功');
+            dispatch(initNotes(params, checkNotes));
+            dispatch(hideLoading());
+          }
+        });
+    }
+  }
+};
+
+export const delTag = (tagName: string) => async (dispatch, getState) => {
+  const checkNotes = getCheckNotes(getState());
+  const search = getSearch(getState());
+  const sort = getSort(getState());
+  const { sortName, sortOrder } = sort;
+  const ids = checkNotes.join(',');
+  const params: searchObj = { search, sortName, sortOrder };
+  if (checkNotes.length > 0) {
+    const notes = getNotes(getState());
+    const checkNote = notes.filter((item: any) => item.id === checkNotes[0]);
+    if (checkNote[0]) {
+      api.jsonHal().from('/api/note/delTag/').post({ ids, tagName },
+        (err, response) => {
+          const error = checkError({response, error: err});
+          if (error) {
+            doError(error);
+          } else {
+            doSucMessage('删除标签成功');
+            dispatch(initNotes(params, checkNotes));
+            dispatch(hideLoading());
+          }
+        });
+    }
+  }
+};
+
 export const deleteForeverNotes = (ids?: string) => async (dispatch, getState) => {
   const checkNotes = getCheckNotes(getState());
   const search = getSearch(getState());

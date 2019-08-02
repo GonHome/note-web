@@ -2,17 +2,16 @@ import * as React from 'react';
 import {
   Menu, MenuItem, MenuDivider, InputGroup, Button, Icon, Intent, Position, Toaster,
 } from '@blueprintjs/core';
-import * as _ from 'lodash';
 import * as classNames from 'classnames';
-import { sortNameObj } from '../../../models/models';
-import { sortNames } from '../../../constants/AppConstants';
 const TOASTER = Toaster.create({ position: Position.TOP });
 
 type propTypes = {
+  tags: any;
+  addTag: (tagName :string) => void;
+  delTag: (tagName :string) => void;
 };
 
 type stateTypes = {
-  menus: sortNameObj[];
   value: string;
 };
 class TagMenu extends React.Component<propTypes, stateTypes> {
@@ -21,16 +20,25 @@ class TagMenu extends React.Component<propTypes, stateTypes> {
   constructor(props: propTypes) {
     super(props);
     this.state = {
-      menus: _.cloneDeep(sortNames),
       value: '',
     }
   }
 
   addTag = () => {
-    const { menus, value } = this.state;
+    const { addTag, tags } = this.props;
+    const { value } = this.state;
     if (value) {
-      menus.push({ code: value, text: value });
-      this.setState({ menus, value: '' });
+      const isExist = tags.some(item => item.name === value);
+      if (isExist) {
+        TOASTER.show({
+          icon: 'warning-sign',
+          intent: Intent.DANGER,
+          message: '此标签已存在',
+        });
+      } else {
+        addTag(value);
+      }
+      this.setState({ value: '' });
     } else {
       TOASTER.show({
         icon: 'warning-sign',
@@ -40,16 +48,13 @@ class TagMenu extends React.Component<propTypes, stateTypes> {
     }
   };
 
-  valueChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ value: e.currentTarget.value });
+  delTag = (tagName: string) => {
+    const { delTag } = this.props;
+    delTag(tagName);
   };
 
-  cancelTag = (code: string) => {
-    const { menus } = this.state;
-    const newMenus = menus.filter((item: sortNameObj) => {
-      return item.code !== code;
-    });
-    this.setState({ menus: newMenus });
+  valueChange = (e: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ value: e.currentTarget.value });
   };
 
   searchButton = () => {
@@ -65,15 +70,16 @@ class TagMenu extends React.Component<propTypes, stateTypes> {
   };
 
   render() {
-    const { menus, value } = this.state;
+    const { tags } = this.props;
+    const { value } = this.state;
     return (
       <Menu className="bar-menu" ref={e => this.ref = e}  >
-        {menus.map((item: sortNameObj) => {
+        {tags.map((item: any) => {
           return <MenuItem
-            key={item.code}
+            key={item.id}
             shouldDismissPopover={false}
-            text={<span>{item.text}
-            <Icon icon="small-cross" className="hover-show" onClick={() => this.cancelTag(item.code)}/>
+            text={<span>{item.name}
+            <Icon icon="small-cross" className="hover-show" onClick={() => this.delTag(item.name)}/>
             </span>}
           />;
         })}

@@ -53,10 +53,6 @@ class FileToolbar extends Toolbar {
           visiable: true,
         },
         {
-          text: '编辑附件',
-          visiable: true,
-        },
-        {
           text: '关注',
           visiable: true,
         },

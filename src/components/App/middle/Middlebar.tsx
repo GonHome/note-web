@@ -134,6 +134,13 @@ class Middlebar extends React.Component<propTypes> {
     }
   };
 
+  showTags = (tags: any[]) => {
+    return tags.map((tag: any) => {
+      console.log(tag.name);
+      return tag.name;
+    }).join('\n');
+  };
+
   render() {
     const { middleWidth, height, sort, changeSort, checkNotes, notes, addNotes, middleLoading } = this.props;
     return (
@@ -179,6 +186,7 @@ class Middlebar extends React.Component<propTypes> {
               <span className="icon-item">
                 {note.isFavourite ? <Icon icon="star" title="已关注" iconSize={14}/> : null}
                 {note.isPin ? <Icon icon="pin" title="已置顶" iconSize={14}/> : null}
+                {note.tags.length > 0 ? <Icon icon="tag" title={this.showTags(note.tags)} iconSize={14}/> : null}
               </span>
             </div>
           })}

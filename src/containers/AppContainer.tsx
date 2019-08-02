@@ -34,6 +34,8 @@ import {
   saveNotes,
   deleteNotes,
   deleteForeverNotes,
+  addTag,
+  delTag,
 } from '../actions/AppActions';
 import { sortObj, eyeWidthObj, searchObj } from '../models/models';
 type propTypes = {
@@ -68,6 +70,8 @@ type propTypes = {
   saveNotes: () => void;
   deleteNotes: (isDelete: boolean, ids?: string) => void;
   deleteForeverNotes: (ids?: string) => void;
+  addTag: (tagName :string) => void;
+  delTag: (tagName :string) => void;
 };
 
 const AppContainer = (props: propTypes) => <App {...props} />;
@@ -109,5 +113,7 @@ export default connect(
     saveNotes,
     deleteNotes,
     deleteForeverNotes,
+    addTag,
+    delTag,
   },
 )(AppContainer);

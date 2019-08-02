@@ -33,7 +33,7 @@ class Modal extends React.Component<propTypes, stateTypes> {
     const { isOpen } = this.state;
     return (
       <div className={classNames('modal card bordered quick-panel', { 'open': isOpen, 'show': isOpen })} >
-        <input placeholder="打开笔记或者附件..." className="autofocus card-header bordered small" value="" />
+        <input placeholder="打开笔记..." className="autofocus card-header bordered small" value="" />
         <Button onClick={this.test} text={'关闭'}/>
       </div>
     );

@@ -21,6 +21,9 @@ type propTypes = {
   isDelete: boolean;
   deleteNotes: (isDelete: boolean, ids?: string) => void;
   deleteForeverNotes: (ids?: string) => void;
+  tags: any[];
+  addTag: (tagName :string) => void;
+  delTag: (tagName :string) => void;
 };
 class MainHeadBar extends React.Component<propTypes> {
 
@@ -40,9 +43,9 @@ class MainHeadBar extends React.Component<propTypes> {
     const code = e.keyCode;
     if (e.ctrlKey && code === 83) {
       saveNotes();
+      e.preventDefault();
+      e.stopPropagation();
     }
-    e.preventDefault();
-    e.stopPropagation();
   };
 
   changeEdit = () => {
@@ -60,19 +63,18 @@ class MainHeadBar extends React.Component<propTypes> {
   };
 
   render() {
-    const { isEdit, isEye, language, changeLanguage, isFavourite, favoriteNotes, isPin, pinNotes, saveNotes, isDelete, deleteNotes, deleteForeverNotes } = this.props;
+    const { isEdit, isEye, language, changeLanguage, isFavourite, favoriteNotes, isPin, pinNotes, saveNotes, isDelete, deleteNotes, deleteForeverNotes, tags, addTag, delTag } = this.props;
     return (
       <div className="layout-header toolbar main-header">
         <ButtonGroup>
           <Button icon="edit" small title="编辑" active={isEdit} onClick={this.changeEdit} disabled={isEye}/>
           <Button icon="translate" small title="可视界面" active={isEye} onClick={this.changeEye}/>
           <Popover
-            content={<TagMenu />}
+            content={<TagMenu tags={tags} addTag={addTag} delTag={delTag}/>}
             position={Position.BOTTOM}
           >
             <Button icon="tag" small title="标签" />
           </Popover>
-          <Button icon="link" small title="附件" />
         </ButtonGroup>
         <ButtonGroup>
           <Button icon="star-empty" small title="关注" active={isFavourite} onClick={ () => favoriteNotes(!isFavourite)} />

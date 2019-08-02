@@ -58,9 +58,6 @@ export const toolbars: toolbarsObj = [
                 text: '编辑标签',
             },
             {
-                text: '编辑附件',
-            },
-            {
                 text: '关注',
             },
             {

@@ -106,3 +106,7 @@ export type searchObj = {
   sortName: string;
   sortOrder: string;
 }
+
+export declare interface KVObj {
+  [key: string]: number
+}

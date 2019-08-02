@@ -27,11 +27,13 @@ type propTypes = {
   saveNotes: () => void;
   deleteNotes: (isDelete: boolean, ids?: string) => void;
   deleteForeverNotes: (ids?: string) => void;
+  addTag: (tagName :string) => void;
+  delTag: (tagName :string) => void;
 };
 class Main extends React.Component<propTypes> {
 
   render() {
-    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeContent, changeLanguage, notes, favoriteNotes, pinNotes, saveNotes, deleteNotes, deleteForeverNotes } = this.props;
+    const { height, leftWidth, middleWidth, width, theme, isEdit, changeIsEdit, isEye, changeIsEyeWidth, checkNotes, changeContent, changeLanguage, notes, favoriteNotes, pinNotes, saveNotes, deleteNotes, deleteForeverNotes, addTag, delTag } = this.props;
     let checkNote: any = null;
     if (notes.length > 0 && checkNotes.length === 1) {
       checkNote = notes.filter((item: any) => {
@@ -49,6 +51,8 @@ class Main extends React.Component<propTypes> {
             pinNotes={pinNotes}
             deleteNotes={deleteNotes}
             deleteForeverNotes={deleteForeverNotes}
+            addTag={addTag}
+            delTag={delTag}
           /> :
           <div style={{ height: '100%' }}>
             <MainHeadBar isEdit={ isEdit } changeIsEdit={ changeIsEdit } isEye={ isEye }
@@ -57,12 +61,15 @@ class Main extends React.Component<propTypes> {
                isFavourite={checkNote ? checkNote.isFavourite : false}
                isPin={checkNote ? checkNote.isPin : false}
                isDelete={checkNote ? checkNote.isDelete : false}
+               tags={checkNote ? checkNote.tags: []}
                changeLanguage={changeLanguage}
                favoriteNotes={favoriteNotes}
                pinNotes={pinNotes}
                saveNotes={saveNotes}
                deleteNotes={deleteNotes}
                deleteForeverNotes={deleteForeverNotes}
+               addTag={addTag}
+               delTag={delTag}
             />
             {
               isEye
