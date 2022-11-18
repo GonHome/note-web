@@ -77,7 +77,7 @@
     "prismjs": "^1.16.0",
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.1",
-    "react-dev-utils": "^9.0.1",
+    "react-dev-utils": "^12.0.1",
     "react-dom": "^16.8.6",
     "react-flexbox-grid": "^2.1.2",
     "react-highlight": "^0.12.0",
